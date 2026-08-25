@@ -1,0 +1,36 @@
+{
+  "theme": "omarchy-system",
+  "lastChangelogVersion": "0.84.2",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.5",
+  "defaultThinkingLevel": "medium",
+  "externalEditor": "nvim",
+  "quietStartup": false,
+  "defaultProjectTrust": "ask",
+  "enableInstallTelemetry": false,
+  "collapseChangelog": true,
+  "showCacheMissNotices": true,
+  "steeringMode": "one-at-a-time",
+  "followUpMode": "one-at-a-time",
+  "transport": "auto",
+  "doubleEscapeAction": "tree",
+  "treeFilterMode": "default",
+  "compaction": {
+    "enabled": true,
+    "reserveTokens": 16384,
+    "keepRecentTokens": 20000
+  },
+  "retry": {
+    "enabled": true,
+    "maxRetries": 3,
+    "baseDelayMs": 2000,
+    "provider": {
+      "maxRetries": 0,
+      "maxRetryDelayMs": 60000
+    }
+  },
+  "packages": [
+    "git:github.com/dmmulroy/pi-mcp",
+    "git:github.com/dmmulroy/pi-web-tools"
+  ]
+}

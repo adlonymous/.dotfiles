@@ -1,0 +1,12 @@
+# Secrets and runtime state
+auth.json
+mcp-auth.json
+models-store.json
+sessions/
+git/
+npm/
+*.log
+
+# OS/editor noise
+.DS_Store
+*.swp

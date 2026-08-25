@@ -1,0 +1,15 @@
+{
+  "mcp": {
+    // Keep startup fast. In proxy mode the `mcp` gateway connects to servers on demand.
+    "startup": "lazy",
+    "toolMode": "proxy",
+    "timeout": 30000,
+    "servers": {
+      "cloudflare-api": {
+        "type": "remote",
+        "url": "https://mcp.cloudflare.com/mcp",
+        "enabled": true
+      }
+    }
+  }
+}
