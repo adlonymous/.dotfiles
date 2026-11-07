@@ -101,7 +101,7 @@ export default class WorkspaceTickets extends View {
     return v_flex().id("workspace-tickets").size_full().min_h(0).rounded(10).overflow_hidden()
       .bg(t.background).border_1().border_color(t.border).text_color(t.foreground).text_size(13)
       .child(h_flex().flex_none().px(12).py(10).gap(8).items_center().border_b(1).border_color(t.border)
-        .child(div().font_semibold().child("Tasks"))
+        .child(div().font_semibold().child("Tickets"))
         .child(div().flex_1().min_w(0).truncate().text_color(t.dim).text_size(11).child(workspace?.name || "No workspace"))
         .child(this.button("ticket-new", this.creating ? "Cancel" : "+ New", (cx) => {
           this.creating = !this.creating;

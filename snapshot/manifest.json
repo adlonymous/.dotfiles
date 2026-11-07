@@ -1,7 +1,7 @@
 {
   "source_host": "lombaxPC",
   "source_platform": "Linux",
-  "captured_at": "2026-11-07T04:46:50.077238+00:00",
+  "captured_at": "2026-11-07T04:57:18.103150+00:00",
   "files": [
     {
       "path": ".pi/agent/AGENTS.md",
@@ -535,6 +535,41 @@
     },
     {
       "path": ".config/herdr-app/mods/files-astro/mod.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tabs/LICENSE",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tabs/main.js",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tabs/mod.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tabs/ticket.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tabs/win-max.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tabs/win-min.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tabs/win-restore.svg",
       "platform": "all",
       "mode": 420
     },

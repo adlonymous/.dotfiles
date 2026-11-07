@@ -6,7 +6,7 @@ This PC (`lombaxPC`) is the source of truth for Pi and Herdr configuration. Capt
 
 - Pi's instructions, settings, model definitions, MCP server definitions, keybindings, Zentui settings, prompts, themes, and local skills.
 - Shared skills from `~/.agents/skills`, including the PDF creation skill.
-- Herdr app settings and keys, the custom `wide-panels` layout, and the `files-astro`, `changes-readable`, and `workspace-tickets` panels.
+- Herdr app settings and keys, the custom `wide-panels` layout, and the `files-astro`, `changes-readable`, `workspace-tickets`, and `workspace-tabs` mods.
 - A herdr-core `config.toml` if the source PC has one. The initial capture has none.
 
 The snapshot contains configuration and source files, not installed applications or model weights. Source versions: Pi 1.5.0, Herdr app 0.1.13, herdr-core 0.1.17. Install compatible versions separately and open Herdr once before applying.
@@ -47,7 +47,7 @@ Changed files are backed up under `~/.local/state/dotfiles/backups/<timestamp>/`
 
 ## Workspace tickets
 
-The `wide-panels` layout includes a Tasks column. It is Pi-native and does not install Shepherdr.
+The `wide-panels` layout includes `Files | Changes | Tickets` buttons in its top bar. They select views in the same right-hand panel, not separate columns. The custom `workspace-tabs` header is cloned from Herdr's shipped tabs mod so updates do not overwrite the Tickets button. It is Pi-native and does not install Shepherdr.
 
 1. Select a workspace, click `+ New`, enter a title and description, and create the ticket.
 2. Select the ticket and choose its conversation context:
@@ -61,11 +61,11 @@ Ticket status and live agent status are shown separately; an agent reporting `do
 
 The panel sends helper requests through `exec(..., { on: space.machine })`, so a Mac viewing a PC workspace uses the PC's tickets, sessions, and core. The helper must be installed on both machines by applying this branch. It never copies a PC path into a Mac-local command. Ticket data is private runtime state under `$XDG_DATA_HOME/herdr-tickets/` (default `~/.local/share/herdr-tickets/`) on the workspace's machine and is not captured in dotfiles. Per-workspace file locks and atomic writes protect concurrent clients.
 
-To hide or show the column, run on the machine displaying Herdr:
+Click Tickets to open its view, or click it again to hide the shared panel. To select it explicitly, run on the machine displaying Herdr:
 
 ```bash
-herdr-app do layout.hide --id tickets-panel
-herdr-app do layout.show --id tickets-panel
+herdr-app do layout.select --stack panel-body --child tickets
+herdr-app do layout.show --id panel
 ```
 
 ## macOS differences
@@ -107,7 +107,7 @@ There is no background Git push, automatic pull, credential sync, live-session s
 
 ## Checks and agent instructions
 
-`script/check` runs Ruff through uvx, Oxlint 1.91.0 through npx for the owned ticket-panel JavaScript, Bash syntax checks, Python/Node tests, and snapshot path/JSON/credential checks. The tests cover Linux and macOS application, home-path expansion, dry-run safety, backups, idempotence, executable permissions, excluded runtime files, symlinks, path traversal, credential rejection, workspace routing, and the three ticket launch modes. When hc is installed, an integration test runs real herdr-core in temporary homes and named sessions with a fake Pi process. It checks all launch modes and a second core remotely creating and starting a ticket on the first; it makes no model calls and stops only those test cores. When herdr-app is installed, the check validates a temporary copy of the Tasks mod so generated files never enter the snapshot. No standalone typecheck is configured for these Python/JavaScript tools.
+`script/check` runs Ruff through uvx, Oxlint 1.91.0 through npx for the owned ticket-panel JavaScript, Bash syntax checks, Python/Node tests, and snapshot path/JSON/credential checks. The tests cover Linux and macOS application, home-path expansion, dry-run safety, backups, idempotence, executable permissions, excluded runtime files, symlinks, path traversal, credential rejection, workspace routing, and the three ticket launch modes. When hc is installed, an integration test runs real herdr-core in temporary homes and named sessions with a fake Pi process. It checks all launch modes and a second core remotely creating and starting a ticket on the first; it makes no model calls and stops only those test cores. When herdr-app is installed, the check validates temporary copies of the Tickets and workspace-tabs mods so generated files never enter the snapshot. No standalone typecheck is configured for these Python/JavaScript tools.
 
 Project-specific instructions: [AGENTS.md](AGENTS.md).
 

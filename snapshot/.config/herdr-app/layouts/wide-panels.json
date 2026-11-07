@@ -79,7 +79,7 @@
           "id": "tabs",
           "type": "block",
           "content": {
-            "mod": "tabs"
+            "mod": "workspace-tabs"
           },
           "size": {
             "px": 42
@@ -140,9 +140,16 @@
                       "content": {
                         "mod": "changes-readable"
                       }
+                    },
+                    {
+                      "id": "tickets",
+                      "type": "block",
+                      "content": {
+                        "mod": "workspace-tickets"
+                      }
                     }
                   ],
-                  "active": "files"
+                  "active": "tickets"
                 }
               ],
               "size": {
@@ -150,19 +157,7 @@
               },
               "min": 280,
               "max": 1600,
-              "hidden": true
-            },
-            {
-              "id": "tickets-panel",
-              "type": "block",
-              "content": {
-                "mod": "workspace-tickets"
-              },
-              "size": {
-                "px": 384
-              },
-              "min": 320,
-              "max": 900
+              "hidden": false
             }
           ],
           "padding": 8,
