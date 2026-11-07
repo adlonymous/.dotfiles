@@ -609,6 +609,11 @@
       "mode": 420
     },
     {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/status-idle.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
       "path": ".config/herdr-app/mods/workspace-agents/schematics/status-ready.svg",
       "platform": "all",
       "mode": 420

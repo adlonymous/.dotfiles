@@ -1,7 +1,7 @@
-const AGENT_PRIORITY = { blocked: 3, done: 2, working: 1 };
+const AGENT_PRIORITY = { blocked: 3, done: 2, working: 1, idle: 0 };
 
-// Group the attention queue by machine; idle parents remain only for active sub-agents.
-export function groupActiveAgents(agents, terminals, spaces) {
+// Group known agents by machine, with idle after active agents; active children promote their parent.
+export function groupMachineAgents(agents, terminals, spaces) {
   const listed = new Map(agents.map(agent => [agent.address, agent]));
   const machineBySpace = new Map(spaces.map(space => [space.id, space.machine]));
   const children = parent => terminals.filter(terminal => terminal.parent === parent && terminal.state === "live" && !listed.has(terminal.address))
@@ -17,7 +17,7 @@ export function groupActiveAgents(agents, terminals, spaces) {
     const subs = children(agent.address);
     const status = [agent.status, ...subs.map(sub => sub.status)]
       .sort((a, b) => (AGENT_PRIORITY[b] ?? 0) - (AGENT_PRIORITY[a] ?? 0))[0];
-    if (!AGENT_PRIORITY[status]) continue;
+    if (!Object.hasOwn(AGENT_PRIORITY, status)) continue;
     const machine = machineBySpace.has(agent.space) ? machineBySpace.get(agent.space)
       : agent.address.includes("/") ? agent.address.split("/")[0] : null;
     if (!groups.has(machine)) groups.set(machine, { machine, members: [] });

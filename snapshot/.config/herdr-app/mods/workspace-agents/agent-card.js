@@ -3,6 +3,7 @@ export const AGENT_CARD_STATES = {
   working: { label: "WORKING", icon: "status-working.svg" },
   blocked: { label: "NEEDS INPUT", icon: "status-blocked.svg" },
   done: { label: "REPORT READY", icon: "status-ready.svg" },
+  idle: { label: "IDLE", icon: "status-idle.svg" },
 };
 const SCHEMATICS = ["turbine", "circuit", "arm", "optics", "relay", "press"];
 

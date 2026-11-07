@@ -34,7 +34,8 @@ test("session schematics survive status/title changes and viewer address prefixe
 test("needs-input and report-ready have distinct non-color status shapes", () => {
   assert.equal(AGENT_CARD_STATES.blocked.label, "NEEDS INPUT");
   assert.equal(AGENT_CARD_STATES.done.label, "REPORT READY");
-  assert.equal(new Set(Object.values(AGENT_CARD_STATES).map(state => state.icon)).size, 3);
+  assert.equal(AGENT_CARD_STATES.idle.label, "IDLE");
+  assert.equal(new Set(Object.values(AGENT_CARD_STATES).map(state => state.icon)).size, 4);
   for (const state of Object.values(AGENT_CARD_STATES)) assert.ok(existsSync(new URL(`schematics/${state.icon}`, root)));
 });
 

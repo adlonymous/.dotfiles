@@ -53,7 +53,7 @@ class AgentCardsInstallTests(unittest.TestCase):
         self.assertEqual(self.settings.read_bytes(), settings)
         self.assertEqual(self.keys.read_bytes(), keys)
         self.assertEqual(self.foreign.read_text(), "untouched")
-        self.assertEqual(len(list((self.home / MOD / "schematics").glob("*.svg"))), 9)
+        self.assertEqual(len(list((self.home / MOD / "schematics").glob("*.svg"))), 10)
         self.assertTrue((self.home / MOD / "agent-card.js").is_file())
         self.assertEqual(self.install(), [])
 

@@ -2,7 +2,7 @@
 import { View, div, svg } from "gpui-kit";
 import { v_flex, h_flex } from "gpui-base";
 import { agents, terminals, spaces, run, theme, setAgentOrder } from "herdr";
-import { agentPanelMode, groupActiveAgents, wrapAgentLabel } from "./agent-groups.js";
+import { agentPanelMode, groupMachineAgents, wrapAgentLabel } from "./agent-groups.js";
 import { AGENT_CARD_STATES, agentCardData, agentMachineGlyph, cleanAgentText } from "./agent-card.js";
 
 const initials = text => Array.from(cleanAgentText(text).replace(/^[^\p{L}\p{N}]+/u, "")).slice(0, 2).join("").toUpperCase();
@@ -11,6 +11,7 @@ export default class WorkspaceAgents extends View {
   init(_props, cx) {
     this.width = 268;
     this.folded = new Set();
+    this.expandedIdle = new Set();
     // This updates elapsed labels, never animation frames or an invented progress meter.
     cx.timer.every(30000, cx => cx.notify());
   }
@@ -18,7 +19,7 @@ export default class WorkspaceAgents extends View {
   status(status, t, age = "", compact = false) {
     const state = AGENT_CARD_STATES[status];
     const skinny = !compact && this.width < 140;
-    const lamp = h_flex().min_w(0).gap(5).items_center().text_color(t[status])
+    const lamp = h_flex().min_w(0).gap(5).items_center().text_color(status === "idle" ? t.dim : t[status])
       .child(svg("mods/workspace-agents/schematics/" + state.icon).size(12).flex_none())
       .when(!compact, el => el.child(div().flex_1().min_w(0).text_size(skinny ? 8 : 9).font_semibold().whitespace_normal().child(state.label)));
     const clock = div().flex_none().text_size(10).text_color(t.dim).child(age);
@@ -70,6 +71,26 @@ export default class WorkspaceAgents extends View {
         .child(rail ? initials(name) : wrapAgentLabel(name, Math.max(2, (this.width - 65) / 6))));
   }
 
+  idleSection(group, t, mode, allTerminals, allSpaces, now) {
+    const idle = group.members.filter(agent => agent.status === "idle");
+    if (!idle.length) return null;
+    const id = `idle-machine-${group.machine ?? "local"}`;
+    const open = this.expandedIdle.has(id), rail = mode === "rail";
+    return v_flex().w_full().min_w(0).flex_none().gap(6)
+      .child(h_flex().id(id).w_full().min_w(0).flex_none().px(rail ? 2 : 6).py(6).gap(4)
+        .cursor_pointer().text_color(t.dim).tooltip(`Idle · ${idle.length} agents`)
+        .accessibility_label(`Idle, ${idle.length} agents, ${open ? "expanded" : "collapsed"}`)
+        .hover(el => el.bg(t.hover)).on_click((_event, cx) => {
+          if (open) this.expandedIdle.delete(id);
+          else this.expandedIdle.add(id);
+          cx.notify();
+        })
+        .when(!rail, el => el.child(svg(`mods/workspace-chrome/chevron-${open ? "down" : "right"}.svg`).size(10).flex_none()))
+        .child(div().flex_1().min_w(0).text_size(10).child(rail ? "I" : "Idle"))
+        .child(div().text_size(10).child(String(idle.length))))
+      .when(open, el => el.children(idle.map(agent => this.agentCard(agent, t, mode, allTerminals, allSpaces, now))));
+  }
+
   machineGroup(group, t, mode, allTerminals, allSpaces, now) {
     const label = group.machine ?? "Local";
     const id = `attention-machine-${group.machine ?? "local"}`;
@@ -87,15 +108,17 @@ export default class WorkspaceAgents extends View {
       .child(div().text_size(10).text_color(t.dim).child(String(group.members.length)))
       .when(!open, el => el.child(this.status(group.members[0].status, t, "", true)));
     return v_flex().w_full().flex_none().border_t(1).border_color(t.border).child(header)
-      .when(open, el => el.child(v_flex().w_full().min_w(0).gap(6).pb(8).children(group.members.flatMap(agent => [
-        this.agentCard(agent, t, mode, allTerminals, allSpaces, now), ...agent.subs.map(sub => this.subRow(sub, t, mode)),
-      ]))));
+      .when(open, el => el.child(v_flex().w_full().min_w(0).gap(6).pb(8)
+        .children(group.members.filter(agent => agent.status !== "idle").flatMap(agent => [
+          this.agentCard(agent, t, mode, allTerminals, allSpaces, now), ...agent.subs.map(sub => this.subRow(sub, t, mode)),
+        ]))
+        .child(this.idleSection(group, t, mode, allTerminals, allSpaces, now))));
   }
 
   render() {
     const t = theme(), mode = agentPanelMode(this.width), rail = mode === "rail";
     const allTerminals = terminals(), allSpaces = spaces();
-    const groups = groupActiveAgents(agents(), allTerminals, allSpaces), now = Date.now();
+    const groups = groupMachineAgents(agents(), allTerminals, allSpaces), now = Date.now();
     setAgentOrder(groups.flatMap(group => group.members.map(agent => agent.address)));
     return v_flex().id("attention-agents").size_full().min_w(0).min_h(0).bg(t.chrome).text_color(t.foreground)
       .on_size_change((size, cx) => {
@@ -107,6 +130,6 @@ export default class WorkspaceAgents extends View {
       .child(v_flex().id("attention-agent-list").flex_1().min_h(0).min_w(0).px(rail ? 2 : 6).overflow_y_scrollbar()
         .children(groups.map(group => this.machineGroup(group, t, mode, allTerminals, allSpaces, now)))
         .when(groups.length === 0, el => el.child(div().px(rail ? 0 : 6).py(6).text_size(11).text_color(t.dim)
-          .tooltip("No agents working or awaiting attention").child(rail ? "·" : "No active agents"))));
+          .tooltip("No agents in connected workspaces").child(rail ? "·" : "No agents"))));
   }
 }
