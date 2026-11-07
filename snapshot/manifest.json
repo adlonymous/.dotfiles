@@ -509,11 +509,6 @@
       "mode": 420
     },
     {
-      "path": ".config/herdr-app/mods/changes-readable/lazygit.yml",
-      "platform": "all",
-      "mode": 420
-    },
-    {
       "path": ".config/herdr-app/mods/changes-readable/main.js",
       "platform": "all",
       "mode": 420

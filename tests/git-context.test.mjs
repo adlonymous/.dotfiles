@@ -1,36 +1,37 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { gitWorkspaceContext, gitTerminalAddress, gitLayoutNode, gitPanelVisible } from "../snapshot/.config/herdr-app/mods/changes-readable/git-context.mjs";
+import { gitWorkspaceContext, gitPushProtected } from "../snapshot/.config/herdr-app/mods/changes-readable/git-context.mjs";
 
-test("workspace machine determines execution, not the viewing computer", () => {
-  const pc = gitWorkspaceContext({ id: "pc/s1", machine: "pc", folder: "/pc/project", name: "PC" });
-  const mac = gitWorkspaceContext({ id: "s1", machine: null, folder: "/mac/project", name: "Mac" });
-  assert.equal(pc.workspace, "s1");
-  assert.equal(pc.machine, "pc");
-  assert.equal(mac.machine, null);
-  assert.equal(gitTerminalAddress(pc, "t1"), "pc/t1");
-  assert.equal(gitTerminalAddress(mac, "t1"), "t1");
-  assert.notEqual(pc.key, mac.key);
-  assert.throws(() => gitTerminalAddress(pc, "other/t1"));
+test("Git uses the workspace host and its first terminal, not keyboard focus", () => {
+  const space = { id: "pc/s1", machine: "pc", folder: "/pc/home", name: "PC", tabs: [{ id: "pc/tab1" }, { id: "pc/tab2" }] };
+  const panes = [
+    { tab: "other/tab1", terminal: "other/t1", cwd: "/unrelated", focused: true },
+    { tab: "pc/tab2", terminal: "pc/t2", cwd: "/second" },
+    { tab: "pc/tab1", terminal: "pc/t1", cwd: "/project" },
+  ];
+  assert.equal(gitWorkspaceContext(space, panes).folder, "/project");
+  assert.equal(gitWorkspaceContext(space, panes).machine, "pc");
+  assert.equal(gitWorkspaceContext(space, []).folder, "/pc/home");
+  assert.equal(gitWorkspaceContext({ ...space, machine: null }).machine, null);
   assert.equal(gitWorkspaceContext(null), null);
 });
 
-test("the terminal viewport shares Changes and launches only when visible", () => {
-  const tree = JSON.parse(readFileSync(new URL("../snapshot/.config/herdr-app/layouts/wide-panels.json", import.meta.url), "utf8"));
-  assert.equal(gitLayoutNode(tree, "changes").type, "column");
-  assert.equal(gitLayoutNode(tree, "git-controls").content.mod, "changes-readable");
-  assert.equal(gitLayoutNode(tree, "git-terminal").content.props.placeholder, true);
-  assert.equal(gitPanelVisible(tree), false);
-  gitLayoutNode(tree, "panel-body").active = "changes";
-  assert.equal(gitPanelVisible(tree), true);
-  gitLayoutNode(tree, "panel").hidden = true;
-  assert.equal(gitPanelVisible(tree), false);
+test("default, detached and unborn branches are not pushable", () => {
+  for (const branch of ["main", "master", "production", ""]) {
+    assert.equal(gitPushProtected({ head: "abc", branch, default_branch: "production" }), true);
+  }
+  assert.equal(gitPushProtected({ head: "", branch: "feat/work" }), true);
+  assert.equal(gitPushProtected({ head: "abc", branch: "feat/work", default_branch: "main" }), false);
 });
 
-test("the wrapper delegates Git to Lazygit without ticket coupling or automatic commits", () => {
+test("Changes is one native mod with no embedded terminal or ticket coupling", () => {
+  const tree = JSON.parse(readFileSync(new URL("../snapshot/.config/herdr-app/layouts/wide-panels.json", import.meta.url), "utf8"));
+  const text = JSON.stringify(tree);
+  assert.doesNotMatch(text, /git-terminal|git-controls/);
   const source = readFileSync(new URL("../snapshot/.config/herdr-app/mods/changes-readable/main.js", import.meta.url), "utf8");
-  assert.doesNotMatch(source, /workspace-tickets|ticketWorkspaceContext|panes\(|focused\(|action: "commit"|action: "push"/);
-  assert.match(source, /gitWorkspaceContext\(spaces\(\).find/);
-  assert.match(source, /this.target.machine \|\| ""/);
+  assert.doesNotMatch(source, /lazygit|workspace-tickets|focused\(|writeTextFile|terminal\.open|terminal\.keep/);
+  assert.match(source, /action: "commit", message: this.input.value\(\)/);
+  assert.match(source, /git-confirm-/);
+  assert.doesNotMatch(source, /"add", "-A"|--force|--no-verify/);
 });

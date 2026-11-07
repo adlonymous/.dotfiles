@@ -136,29 +136,10 @@
                     },
                     {
                       "id": "changes",
-                      "type": "column",
-                      "children": [
-                        {
-                          "id": "git-controls",
-                          "type": "block",
-                          "size": {
-                            "px": 205
-                          },
-                          "content": {
-                            "mod": "changes-readable"
-                          }
-                        },
-                        {
-                          "id": "git-terminal",
-                          "type": "block",
-                          "content": {
-                            "mod": "changes-readable",
-                            "props": {
-                              "placeholder": true
-                            }
-                          }
-                        }
-                      ]
+                      "type": "block",
+                      "content": {
+                        "mod": "changes-readable"
+                      }
                     },
                     {
                       "id": "tickets",

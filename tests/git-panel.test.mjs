@@ -5,12 +5,11 @@ import * as gitContext from "../snapshot/.config/herdr-app/mods/changes-readable
 
 const source = readFileSync(new URL("../snapshot/.config/herdr-app/mods/changes-readable/main.js", import.meta.url), "utf8");
 
-// Run real view callbacks with native elements stubbed; screenshots check actual layout.
+// Exercise actual view callbacks without a GPU. Native screenshots check rendering separately.
 function gitPanelHarness(respond) {
-  const elements = new Map(), requests = [], commands = [], pending = [];
+  const elements = new Map(), requests = [], commands = [], pending = [], browsers = [];
   let space = { id: "pc/s1", name: "Project", machine: "pc", folder: "/pc/project" };
-  let tree = { id: "root", children: [{ id: "panel", children: [{ id: "panel-body", active: "changes", children: [{ id: "git-terminal", content: gitContext.gitViewportPlaceholder }] }] }] };
-  const cx = { notify() {}, timer: { every() {} }, spawn(callback) { pending.push(callback(cx)); } };
+  const cx = { notify() {}, focus_handle: () => ({}), timer: { every() {} }, spawn(callback) { pending.push(callback(cx)); } };
   function element() {
     let proxy;
     const handlers = {};
@@ -31,88 +30,95 @@ function gitPanelHarness(respond) {
   } };
   const dependencies = {
     ...gitContext, View: class {}, div: element, v_flex: element, h_flex: element, InputState, Input: { new: element },
-    spaces: () => [{ ...space, active: true }],
-    exec: async (_command, args, options) => {
+    Scrollbar: { vertical: element }, v_virtual_list: element,
+    spaces: () => [{ ...space, active: true }], panes: () => [],
+    exec: async (command, args, options) => {
+      if (command !== "sh") { browsers.push({ command, args, options }); return { code: 0 }; }
       const request = JSON.parse(args[3]);
       requests.push({ request, on: options.on });
       return respond(request, options);
     },
-    theme: () => ({}), props: () => dependencies.viewProps, layout: () => tree,
-    shared: () => "wide-panels", appHome: () => "/viewer/.config/herdr-app",
-    readTextFile: async () => JSON.stringify(tree),
-    writeTextFile: async (_path, text) => { tree = JSON.parse(text); },
+    theme: () => ({}), settings: () => ({}), props: () => dependencies.viewProps,
     openOverlay() {}, closeOverlay() {}, run: (name, args) => commands.push({ name, args }),
     window: () => ({ platform: "macos" }), viewProps: {},
   };
   const body = source.replace(/^import .*;\n/gm, "").replace("export default class Changes", "return class Changes");
   const Changes = new Function(...Object.keys(dependencies), body)(...Object.values(dependencies));
-  return { view: new Changes(), cx, requests, commands, elements, dependencies,
-    select(value) { space = value; }, tree: () => tree,
+  return { view: new Changes(), cx, requests, commands, elements, dependencies, browsers,
+    select(value) { space = value; },
     async settle() { while (pending.length) await Promise.all(pending.splice(0)); } };
 }
-const reply = data => ({ stdout: JSON.stringify(data), code: 0 });
-const session = request => reply({ is_repo: true, root: request.folder, terminal: "t1", head: "", has_remotes: false });
+const state = folder => ({ is_repo: true, folder, root: folder, head: "abcdef", branch: "feat/work",
+  fingerprint: "reviewed-state", upstream: "", remotes: [], files: [], branches: ["main", "feat/work"],
+  identity: { name: "Example", email: "example@example.invalid" }, operation: "" });
+const reply = (data, code = 0) => ({ stdout: JSON.stringify(data), code });
+const respond = request => reply(request.action === "status" ? state(request.folder) : { message: "Done" });
 
-test("PC workspace starts through PC and embeds a machine-qualified terminal", async () => {
-  const h = gitPanelHarness(session);
-  h.view.init({}, h.cx);
-  await h.settle();
-  assert.equal(h.requests[0].on, "pc");
-  assert.equal(h.requests[0].request.workspace, "s1");
-  assert.equal(gitContext.gitLayoutNode(h.tree(), "git-terminal").content.terminal, "pc/t1");
+test("commit sends only the commit action, captured folder, host and reviewed snapshot", async () => {
+  const h = gitPanelHarness(respond);
+  h.view.init({}, h.cx); await h.settle();
+  h.view.input.set_value("feat: explicit commit");
+  h.view.act({ action: "commit", message: h.view.input.value() }, h.cx); await h.settle();
+  const mutation = h.requests.find(entry => entry.request.action === "commit");
+  assert.equal(mutation.on, "pc");
+  assert.equal(mutation.request.folder, "/pc/project");
+  assert.equal(mutation.request.expected, "reviewed-state");
+  assert.equal(mutation.request.message, "feat: explicit commit");
+  assert.equal(h.view.input.value(), "");
+  assert.equal(h.requests.some(entry => entry.request.action === "stage"), false);
 });
 
-test("Mac-local workspace starts locally and never gets the PC prefix", async () => {
-  const h = gitPanelHarness(session);
-  h.select({ id: "s2", name: "Mac", machine: null, folder: "/mac/project" });
-  h.view.init({}, h.cx);
-  await h.settle();
-  assert.equal(h.requests[0].on, null);
-  assert.equal(h.requests[0].request.folder, "/mac/project");
-  assert.equal(gitContext.gitLayoutNode(h.tree(), "git-terminal").content.terminal, "t1");
+test("failed commit preserves the draft and error after refreshing status", async () => {
+  const h = gitPanelHarness(request => request.action === "commit" ? reply({ error: "Hook rejected commit" }, 1) : respond(request));
+  h.view.init({}, h.cx); await h.settle();
+  h.view.input.set_value("fix: keep draft");
+  h.view.act({ action: "commit", message: h.view.input.value() }, h.cx); await h.settle();
+  assert.equal(h.view.input.value(), "fix: keep draft");
+  assert.equal(h.view.error, "Hook rejected commit");
 });
 
-test("hidden Changes does not launch anything", async () => {
-  const h = gitPanelHarness(session);
-  gitContext.gitLayoutNode(h.tree(), "panel-body").active = "tickets";
-  h.view.init({}, h.cx);
-  await h.settle();
-  assert.equal(h.requests.length, 0);
-});
-
-test("late PC response cannot replace the Mac workspace's terminal", async () => {
+test("late PC response cannot populate a newly selected Mac workspace", async () => {
   let complete;
   const first = new Promise(resolve => { complete = resolve; });
-  const h = gitPanelHarness((request, options) => options.on === "pc" ? first : session(request));
+  const h = gitPanelHarness((request, options) => options.on === "pc" ? first : respond(request));
   h.view.init({}, h.cx);
-  await Promise.resolve(); await Promise.resolve();
+  h.view.formExpected = "old-form";
   h.select({ id: "local", machine: null, name: "Mac", folder: "/mac/project" });
-  complete(session({ folder: "/pc/project" }));
-  await h.settle();
-  assert.equal(h.view.state.root, "/mac/project");
-  assert.equal(gitContext.gitLayoutNode(h.tree(), "git-terminal").content.terminal, "t1");
+  h.view.refresh(h.cx); complete(reply(state("/pc/project"))); await h.settle();
+  assert.equal(h.view.state.folder, "/mac/project");
+  assert.equal(h.view.formExpected, null);
+  assert.deepEqual(h.requests.map(entry => entry.on), ["pc", null]);
 });
 
-test("quitting Lazygit is not automatically undone by polling", async () => {
-  const h = gitPanelHarness(request => request.action === "open" ? session(request) : reply({ is_repo: true, terminal: null }));
-  h.view.init({}, h.cx);
-  await h.settle();
-  h.view.sync(h.cx);
-  await h.settle();
-  assert.deepEqual(h.requests.map(entry => entry.request.action), ["open", "session"]);
-  assert.equal(gitContext.gitLayoutNode(h.tree(), "git-terminal").content.props.placeholder, true);
+test("network actions require a separate confirmation button", async () => {
+  const h = gitPanelHarness(request => reply({ ...state(request.folder), remotes: [{ name: "origin", url: "https://example.invalid/repo", push_urls: ["https://example.invalid/repo"] }] }));
+  h.view.init({}, h.cx); await h.settle();
+  h.view.openForm("push", h.cx); h.view.render(h.cx);
+  assert.equal(h.requests.some(entry => entry.request.action === "push"), false);
+  h.elements.get("git-confirm-push").click({}, h.cx); await h.settle();
+  assert.equal(h.requests.find(entry => entry.request.action === "push").on, "pc");
 });
 
-test("new-project confirmation preserves local machine even when PC becomes active", async () => {
-  const h = gitPanelHarness(request => reply(request.action === "project-info"
-    ? { parent: "/mac/Projects" } : { folder: "/mac/Projects/new-project", name: "new-project" }));
-  Object.assign(h.dependencies.viewProps, { form: "project", target: { machine: null } });
-  h.view.init({}, h.cx);
-  await h.settle();
-  h.view.fields.name.set_value("new-project");
-  h.view.render(h.cx);
-  h.elements.get("git-form-submit").click({}, h.cx);
-  await h.settle();
+test("GitHub creation requires explicit visibility and opens the link on the viewer", async () => {
+  const h = gitPanelHarness(request => reply(request.action === "status" ? state(request.folder)
+    : request.action === "github-info" ? { owner: "example" } : { url: "https://github.com/example/project" }));
+  h.view.init({}, h.cx); await h.settle();
+  h.view.openForm("github", h.cx); await h.settle(); h.view.render(h.cx);
+  h.elements.get("github-create").click({}, h.cx); await h.settle();
+  assert.equal(h.requests.some(entry => entry.request.action === "github-create"), false);
+  h.elements.get("github-private").click({}, h.cx); h.view.render(h.cx);
+  h.elements.get("github-create").click({}, h.cx); await h.settle();
+  assert.equal(h.requests.find(entry => entry.request.action === "github-create").request.visibility, "private");
+  assert.equal(h.browsers[0].command, "open");
+  assert.equal(h.browsers[0].options, undefined);
+});
+
+test("a Mac project dialog stays local even when PC is the active workspace", async () => {
+  const h = gitPanelHarness(request => reply(request.action === "project-info" ? { parent: "/mac/Projects" } : { folder: "/mac/Projects/new-project", name: "new-project" }));
+  Object.assign(h.dependencies.viewProps, { project: true, machine: "" });
+  h.view.init({}, h.cx); await h.settle();
+  h.view.fields.name.set_value("new-project"); h.view.render(h.cx);
+  h.elements.get("project-create").click({}, h.cx); await h.settle();
   assert.equal(h.requests.at(-1).on, null);
   assert.deepEqual(h.commands, [{ name: "space.new", args: { folder: "/mac/Projects/new-project", name: "new-project", machine: "" } }]);
 });

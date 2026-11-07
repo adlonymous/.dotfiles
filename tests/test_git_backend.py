@@ -30,27 +30,30 @@ class GitBackendTests(unittest.TestCase):
         environment.start()
         self.addCleanup(environment.stop)
         self.git("init", "--initial-branch=main")
+        self.git("config", "user.name", "Example")
+        self.git("config", "user.email", "test@example.invalid")
 
-    def git(self, *args, environment=None):
-        return subprocess.run(["git", *args], cwd=self.folder, env=environment, check=True,
+    def git(self, *args, folder=None):
+        return subprocess.run(["git", *args], cwd=folder or self.folder, check=True,
                               capture_output=True, text=True).stdout.strip()
 
     def request(self, action, **values):
-        return backend.handle_request({"action": action, "folder": str(self.folder), "workspace": "s1", **values}, self.home)
+        expected = self.request("status").get("fingerprint") if action not in {"status", "project-info", "project-create", "github-info"} else None
+        return backend.handle_request({"action": action, "folder": str(self.folder), "expected": expected, **values}, self.home)
 
     def seed(self):
         (self.folder / "README.md").write_text("# Example\n")
-        self.git("add", "README.md")
-        self.git("commit", "-m", "test: initial project")
+        self.request("stage", path="README.md")
+        self.request("commit", message="test: initial project")
 
-    def test_new_project_is_git_backed_but_never_committed_or_published(self):
+    def test_new_project_initializes_git_without_commit_or_remote(self):
         result = self.request("project-create", name="new-project", parent=str(self.home / "Projects"), description="An example")
         folder = Path(result["folder"])
         self.assertTrue(result["initialized"])
-        info = backend.repository_info(str(folder))
+        info = backend.GitRepository(str(folder)).status()
         self.assertEqual(info["branch"], "main")
         self.assertEqual(info["head"], "")
-        self.assertFalse(info["has_remotes"])
+        self.assertEqual(info["remotes"], [])
         self.assertIn("Revise this AGENTS.md", (folder / "AGENTS.md").read_text())
         self.assertIn("An example", (folder / "README.md").read_text())
         self.assertIn(".env", (folder / ".gitignore").read_text())
@@ -64,29 +67,164 @@ class GitBackendTests(unittest.TestCase):
                 self.request("project-create", name=name, parent=str(parent))
         self.assertFalse((existing / ".git").exists())
         self.assertFalse((self.home / ".git").exists())
-        self.assertFalse(backend.repository_info(str(self.home))["is_repo"])
+        self.assertFalse(backend.GitRepository(str(self.home)).status()["is_repo"])
 
-    def test_nested_project_reuses_parent_repository(self):
+    def test_nested_project_uses_parent_and_existing_worktree_is_supported(self):
         self.seed()
         result = self.request("project-create", name="child", parent=str(self.folder))
         self.assertFalse(result["initialized"])
         self.assertFalse((Path(result["folder"]) / ".git").exists())
-        self.assertEqual(backend.repository_info(result["folder"])["root"], str(self.folder))
+        self.assertEqual(backend.GitRepository(result["folder"]).status()["root"], str(self.folder))
+        worktree = self.home / "feature-worktree"
+        self.git("worktree", "add", "-b", "feat/worktree", str(worktree))
+        state = backend.GitRepository(str(worktree)).status()
+        self.assertEqual(state["root"], str(worktree))
+        self.assertEqual(state["branch"], "feat/worktree")
 
-    def test_session_never_initializes_existing_non_git_folder(self):
-        result = self.request("open", folder=str(self.home))
-        self.assertFalse(result["is_repo"])
-        self.assertIsNone(result["terminal"])
-        self.assertFalse((self.home / ".git").exists())
+    def test_commit_only_uses_explicitly_staged_files(self):
+        (self.folder / "chosen.txt").write_text("chosen\n")
+        (self.folder / "leave alone.txt").write_text("not selected\n")
+        self.request("stage", path="chosen.txt")
+        self.request("unstage", path="chosen.txt")
+        self.assertEqual(self.git("ls-files"), "")
+        self.request("stage", path="chosen.txt")
+        self.request("commit", message="feat: selected content")
+        self.assertEqual(self.git("ls-tree", "--name-only", "HEAD"), "chosen.txt")
+        (self.folder / "chosen.txt").write_text("updated\n")
+        self.request("stage", path="chosen.txt")
+        self.request("unstage", path="chosen.txt")
+        self.assertEqual(self.git("diff", "--cached"), "")
+        self.assertEqual((self.folder / "chosen.txt").read_text(), "updated\n")
 
-    def test_github_creation_requires_visibility_and_does_not_push(self):
+    def test_staged_and_working_diffs_are_distinct(self):
         self.seed()
-        info = backend.repository_info(str(self.folder))
-        values = {"expected": info["fingerprint"], "owner": "example-owner", "name": "example", "visibility": ""}
+        (self.folder / "README.md").write_text("staged version\n")
+        self.request("stage", path="README.md")
+        (self.folder / "README.md").write_text("working version\n")
+        staged = self.request("diff", path="README.md", staged=True)["text"]
+        working = self.request("diff", path="README.md", staged=False)["text"]
+        self.assertIn("+staged version", staged)
+        self.assertNotIn("working version", staged)
+        self.assertIn("+working version", working)
+        self.request("commit", message="fix: staged content")
+        self.assertEqual(self.git("show", "HEAD:README.md"), "staged version")
+        self.assertIn("+working version", self.git("diff"))
+
+    def test_literal_paths_unicode_and_symlinks_do_not_escape_diff(self):
+        for name in [":(glob)*", "space ' quote.txt", "中文.txt", "line\nbreak.txt"]:
+            (self.folder / name).write_text("content\n")
+            self.request("stage", path=name)
+        self.assertEqual(len(self.request("status")["files"]), 4)
+        (self.home / "outside").write_text("must not read target")
+        (self.folder / "link").symlink_to(self.home / "outside")
+        diff = self.request("diff", path="link", staged=False)["text"]
+        self.assertIn("Symbolic link:", diff)
+        self.assertNotIn("must not read target", diff)
+
+    def test_external_edits_and_index_changes_reject_stale_requests(self):
+        self.seed()
+        (self.folder / "README.md").write_text("first modification\n")
+        expected = self.request("status")["fingerprint"]
+        (self.folder / "README.md").write_text("second modification\n")
+        with self.assertRaisesRegex(ValueError, "Repository changed"):
+            self.request("stage", path="README.md", expected=expected)
+        self.request("stage", path="README.md")
+        expected = self.request("status")["fingerprint"]
+        self.git("restore", "--staged", "README.md")
+        with self.assertRaisesRegex(ValueError, "Repository changed"):
+            self.request("commit", message="test: stale index", expected=expected)
+
+    def test_native_commits_preserve_existing_hooks_and_drafts_are_not_staged(self):
+        self.seed()
+        (self.folder / "new.txt").write_text("chosen\n")
+        with self.assertRaisesRegex(ValueError, "Stage files"):
+            self.request("commit", message="test: not selected")
+        self.request("stage", path="new.txt")
+        hook = self.folder / ".git/hooks/pre-commit"
+        hook.write_text("#!/bin/sh\necho 'original hook rejected commit' >&2\nexit 1\n")
+        hook.chmod(0o755)
+        head = self.request("status")["head"]
+        with self.assertRaisesRegex(ValueError, "original hook rejected"):
+            self.request("commit", message="test: honor hooks")
+        self.assertEqual(self.request("status")["head"], head)
+        self.assertIn("new.txt", self.git("diff", "--cached", "--name-only"))
+
+    def test_staged_environment_files_and_private_keys_are_blocked(self):
+        (self.folder / ".env").write_text("LOCAL_VALUE=example\n")
+        self.request("stage", path=".env")
+        with self.assertRaisesRegex(ValueError, "environment file"):
+            self.request("commit", message="test: refuse env")
+        self.request("unstage", path=".env")
+        (self.folder / "key.txt").write_text("-----BEGIN " + "PRIVATE KEY-----\nnot-a-key\n")
+        self.request("stage", path="key.txt")
+        with self.assertRaisesRegex(ValueError, "Possible secret"):
+            self.request("commit", message="test: refuse key")
+
+    def test_create_branch_confirms_dirty_changes_and_switch_requires_clean_tree(self):
+        self.seed()
+        self.git("branch", "other")
+        (self.folder / "new.txt").write_text("pending\n")
+        with self.assertRaisesRegex(ValueError, "Confirm"):
+            self.request("branch", branch="feat/new")
+        self.request("branch", branch="feat/new", carry_changes=True)
+        with self.assertRaisesRegex(ValueError, "Commit or stash"):
+            self.request("switch", branch="other")
+        self.request("stage", path="new.txt")
+        self.request("commit", message="feat: branch content")
+        self.request("switch", branch="other")
+        self.assertFalse((self.folder / "new.txt").exists())
+        with self.assertRaises(ValueError):
+            self.request("branch", branch="--orphan")
+
+    def test_push_fetch_pull_use_real_local_remote_without_default_branch_push(self):
+        self.seed()
+        remote = self.home / "remote.git"
+        self.git("clone", "--bare", str(self.folder), str(remote))
+        self.git("remote", "add", "origin", str(remote))
+        with self.assertRaisesRegex(ValueError, "default-branch"):
+            self.request("push", remote="origin")
+        self.request("branch", branch="feat/work")
+        self.request("push", remote="origin")
+        self.assertEqual(self.request("status")["upstream"], "origin/feat/work")
+        other = self.home / "other"
+        self.git("clone", str(remote), str(other))
+        self.git("switch", "feat/work", folder=other)
+        (other / "remote.txt").write_text("remote change\n")
+        self.git("add", "remote.txt", folder=other)
+        self.git("commit", "-m", "test: remote change", folder=other)
+        self.git("push", "origin", "feat/work", folder=other)
+        self.request("fetch", remote="origin")
+        self.assertEqual(self.request("status")["behind"], 1)
+        self.request("pull", remote="origin")
+        self.assertEqual((self.folder / "remote.txt").read_text(), "remote change\n")
+        (self.folder / "dirty.txt").write_text("pending\n")
+        with self.assertRaisesRegex(ValueError, "clean working tree"):
+            self.request("pull", remote="origin")
+
+    def test_custom_remote_default_and_unknown_default_are_blocked(self):
+        self.seed()
+        self.git("branch", "-m", "production")
+        remote = self.home / "custom.git"
+        self.git("clone", "--bare", str(self.folder), str(remote))
+        self.git("remote", "add", "origin", str(remote))
+        with self.assertRaisesRegex(ValueError, "default-branch"):
+            self.request("push", remote="origin")
+        self.request("branch", branch="feat/work")
+        empty = self.home / "empty.git"
+        self.git("init", "--bare", str(empty))
+        self.git("remote", "set-url", "--push", "origin", str(empty))
+        with self.assertRaisesRegex(ValueError, "Cannot verify"):
+            self.request("push", remote="origin")
+        self.git("remote", "set-url", "--add", "--push", "origin", str(remote))
+        with self.assertRaisesRegex(ValueError, "Multiple push"):
+            self.request("push", remote="origin")
+
+    def test_github_creation_requires_explicit_visibility_and_never_pushes(self):
+        self.seed()
+        values = {"owner": "example-owner", "name": "example", "visibility": ""}
         with self.assertRaisesRegex(ValueError, "explicitly"):
             self.request("github-create", **values)
-        real_command = backend.command
-        calls = []
+        real_command, calls = backend.command, []
         def command(argv, *args, **kwargs):
             if argv[0] == "gh":
                 calls.append(argv)
@@ -99,101 +237,14 @@ class GitBackendTests(unittest.TestCase):
         self.assertIn("--description", calls[0])
         self.assertIn("--homepage", calls[0])
         self.assertNotIn("--push", calls[0])
-        self.git("remote", "add", "origin", "https://github.com/example-owner/example.git")
-        with self.assertRaisesRegex(ValueError, "Repository changed"):
-            self.request("github-create", **{**values, "visibility": "public"})
 
-    def test_scoped_hooks_preserve_existing_hooks_and_leave_repository_config_unchanged(self):
-        self.seed()
-        hooks = self.folder / "custom-hooks"
-        hooks.mkdir()
-        self.git("config", "core.hooksPath", "custom-hooks")
-        before = (self.folder / ".git/config").read_text()
-        hook = hooks / "pre-commit"
-        hook.write_text("#!/bin/sh\necho 'original hook rejected commit' >&2\nexit 1\n")
-        hook.chmod(0o755)
-        (self.folder / "new.txt").write_text("chosen content\n")
-        self.git("add", "new.txt")
-        with backend.lazygit_environment() as environment:
-            result = subprocess.run(["git", "commit", "-m", "test: respect hooks"], cwd=self.folder,
-                                    env=environment, capture_output=True, text=True)
-        self.assertNotEqual(result.returncode, 0)
-        self.assertIn("original hook rejected commit", result.stderr)
-        self.assertEqual((self.folder / ".git/config").read_text(), before)
-        self.assertIn("new.txt", self.git("diff", "--cached", "--name-only"))
-
-    def test_scoped_secret_scan_blocks_environment_files_and_private_keys(self):
-        (self.folder / ".env").write_text("LOCAL_VALUE=example\n")
-        self.git("add", ".env")
-        with backend.lazygit_environment() as environment:
-            result = subprocess.run(["git", "commit", "-m", "test: refuse env"], cwd=self.folder,
-                                    env=environment, capture_output=True, text=True)
-        self.assertNotEqual(result.returncode, 0)
-        self.assertIn("environment file", result.stderr)
-        self.git("rm", "--cached", ".env")
-        (self.folder / "key.txt").write_text("-----BEGIN " + "PRIVATE KEY-----\nnot-a-key\n")
-        self.git("add", "key.txt")
-        with self.assertRaisesRegex(ValueError, "Possible secret"):
-            backend.scan_staged(self.folder)
-
-    def test_default_branch_guard_checks_destination_refs_not_just_current_branch(self):
-        self.seed()
-        bare = self.home / "remote.git"
-        self.git("clone", "--bare", str(self.folder), str(bare))
-        sha = self.git("rev-parse", "HEAD")
-        for name in ("main", "master"):
-            with self.assertRaisesRegex(ValueError, "Default-branch"):
-                backend.guard_push(self.folder, str(bare), f"refs/heads/feat/work {sha} refs/heads/{name} {'0' * 40}\n".encode())
-        backend.guard_push(self.folder, str(bare), f"refs/heads/feat/work {sha} refs/heads/feat/work {'0' * 40}\n".encode())
-        # Real feature push exercises the hook and forwards its original stdin unchanged.
-        self.git("switch", "-c", "feat/work")
-        hook = self.folder / ".git/hooks/pre-push"
-        hook.write_text('#!/bin/sh\nIFS= read -r update\nprintf "%s" "$update" > original-hook-input\n')
-        hook.chmod(0o755)
-        with backend.lazygit_environment() as environment:
-            self.git("push", str(bare), "feat/work", environment=environment)
-        self.assertIn("refs/heads/feat/work", (self.folder / "original-hook-input").read_text())
-
-    def test_custom_remote_default_and_unknown_defaults_fail_closed(self):
-        self.seed()
-        self.git("branch", "-m", "production")
-        bare = self.home / "custom.git"
-        self.git("clone", "--bare", str(self.folder), str(bare))
-        payload = f"refs/heads/feature {'a' * 40} refs/heads/production {'b' * 40}\n".encode()
-        with self.assertRaisesRegex(ValueError, "Default-branch"):
-            backend.guard_push(self.folder, str(bare), payload)
-        empty = self.home / "empty.git"
-        self.git("init", "--bare", str(empty))
-        with self.assertRaisesRegex(ValueError, "Cannot verify"):
-            backend.guard_push(self.folder, str(empty), payload)
-
-    def test_empty_github_repository_uses_api_default_without_pushing(self):
-        payload = f"refs/heads/feature {'a' * 40} refs/heads/production {'b' * 40}\n".encode()
-        response = subprocess.CompletedProcess([], 0, "production\n", "")
-        with (patch.object(backend, "git", return_value=""),
-              patch.object(backend, "command", return_value=response) as call,
-              self.assertRaisesRegex(ValueError, "Default-branch")):
-            backend.guard_push(self.folder, "git@github.com:owner/new.git", payload)
-        self.assertEqual(call.call_args.args[0], ["gh", "api", "repos/owner/new", "--jq", ".default_branch"])
-
-    def test_hooks_added_while_lazygit_runs_are_still_forwarded(self):
-        self.seed()
-        with backend.lazygit_environment() as environment:
-            hook = self.folder / ".git/hooks/pre-commit"
-            hook.write_text("#!/bin/sh\necho 'new hook rejected commit' >&2\nexit 1\n")
-            hook.chmod(0o755)
-            (self.folder / "new.txt").write_text("content\n")
-            self.git("add", "new.txt")
-            result = subprocess.run(["git", "commit", "-m", "test: honor new hook"], cwd=self.folder,
-                                    env=environment, capture_output=True, text=True)
-        self.assertNotEqual(result.returncode, 0)
-        self.assertIn("new hook rejected commit", result.stderr)
-
-    def test_repository_info_never_returns_embedded_remote_credentials(self):
+    def test_credentials_redacted_and_identity_configuration_is_local(self):
         self.git("remote", "add", "origin", "https://user:example-password@github.com/owner/repo.git")
-        info = backend.repository_info(str(self.folder))
+        info = self.request("status")
         self.assertNotIn("example-password", json.dumps(info))
-        self.assertEqual(info["github_url"], "https://github.com/owner/repo")
+        self.assertEqual(info["remotes"][0]["github_url"], "https://github.com/owner/repo")
+        self.request("identity", name="Example", email="example@example.invalid")
+        self.assertEqual(self.git("config", "--local", "user.email"), "example@example.invalid")
 
 
 if __name__ == "__main__":
