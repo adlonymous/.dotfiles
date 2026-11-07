@@ -40,7 +40,7 @@
               "id": "agents",
               "type": "block",
               "content": {
-                "mod": "agents"
+                "mod": "workspace-agents"
               },
               "size": {
                 "weight": 1
@@ -69,7 +69,7 @@
       "min": 44,
       "max": 480,
       "background": "chrome",
-      "resizable": false
+      "resizable": true
     },
     {
       "id": "work",

@@ -7,7 +7,7 @@ python3 tools/sync_config.py check
 if command -v herdr-app >/dev/null 2>&1; then
   temporary=$(mktemp -d)
   trap 'rm -rf "$temporary"' EXIT
-  for mod in workspace-tickets workspace-tabs changes-readable; do
+  for mod in workspace-tickets workspace-tabs changes-readable workspace-agents; do
     cp -R "snapshot/.config/herdr-app/mods/$mod" "$temporary/$mod"
     herdr-app check "$temporary/$mod"
   done

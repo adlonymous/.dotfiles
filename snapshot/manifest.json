@@ -1,7 +1,7 @@
 {
   "source_host": "lombaxPC",
   "source_platform": "Linux",
-  "captured_at": "2026-11-07T06:37:47.325672+00:00",
+  "captured_at": "2026-11-07T06:51:03.207902+00:00",
   "files": [
     {
       "path": ".pi/agent/AGENTS.md",
@@ -489,6 +489,11 @@
       "mode": 420
     },
     {
+      "path": ".config/herdr-app/programs.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
       "path": ".config/herdr-app/layouts/wide-panels.json",
       "platform": "all",
       "mode": 420
@@ -550,6 +555,21 @@
     },
     {
       "path": ".config/herdr-app/mods/files-astro/mod.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/agent-groups.js",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/main.js",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/mod.json",
       "platform": "all",
       "mode": 420
     },

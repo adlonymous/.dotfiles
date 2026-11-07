@@ -6,7 +6,7 @@ This PC (`lombaxPC`) is the source of truth for Pi and Herdr configuration. Capt
 
 - Pi's instructions, settings, model definitions, MCP server definitions, keybindings, Zentui settings, prompts, themes, and local skills.
 - Shared skills from `~/.agents/skills`, including the PDF creation skill.
-- Herdr app settings and keys, the custom `wide-panels` layout, and the `files-astro`, `changes-readable`, `workspace-tickets`, and `workspace-tabs` mods.
+- Herdr app settings, keys, and program launchers, the custom `wide-panels` layout, and the `files-astro`, `changes-readable`, `workspace-tickets`, `workspace-tabs`, and `workspace-agents` mods.
 - A herdr-core `config.toml` if the source PC has one. The initial capture has none.
 
 The snapshot contains configuration and source files, not installed applications or model weights. Source versions: Pi 1.5.0, Herdr app 0.1.13, herdr-core 0.1.17. Install compatible versions separately and open Herdr once before applying.
@@ -45,6 +45,12 @@ The selected layout is screen-local state and is deliberately not copied. Your e
 
 Changed files are backed up under `~/.local/state/dotfiles/backups/<timestamp>/`, preserving their home-relative paths and permissions. Applying the same snapshot twice is a no-op. Only managed files are replaced: unrelated local files, including other extensions and mods, are not deleted. Symlinked destinations are refused before any files are changed. Review the preview and resolve those links explicitly rather than forcing through them.
 
+## Posting launcher
+
+Herdr's `+` menu includes Posting through `.config/herdr-app/programs.json` (under the menu's built-in "Start an agent" heading). It opens a Posting terminal tab in the selected workspace. Install Posting separately on each workspace host; dotfiles syncs the launcher, not the executable. The entry is disabled when Posting is not installed on that host.
+
+This PC uses the official Posting 3.0.0-beta.1 Linux binary in `~/.local/bin/posting`. See [Posting installation](https://github.com/darrenburns/posting#installation) for current platform instructions. On macOS, the documented beta install is `brew install darrenburns/homebrew/posting@beta`. Ensure `posting` is on the workspace host's PATH.
+
 ## Git and GitHub in Changes
 
 Changes embeds the real Lazygit terminal UI. It is independent of Tickets. A Mac-local workspace runs Lazygit on the Mac; a PC workspace viewed from the Mac runs it on the PC. Git, files, GitHub CLI authentication, and existing repository hooks stay on that workspace's machine. Install Python 3.11+, Git, and Lazygit on every workspace host; install and authenticate `gh` there for GitHub repository creation. On the Mac, `brew install lazygit gh` installs those two tools. Linux integration was tested with Lazygit 0.65.1; actual Mac UI testing is still needed.
@@ -80,6 +86,12 @@ Click Tickets to open its view, or click it again to hide the shared panel. To s
 herdr-app do layout.select --stack panel-body --child tickets
 herdr-app do layout.show --id panel
 ```
+
+## Agents sidebar
+
+The custom Agents sidebar groups working, needs-input, and unvisited-done agents by machine. Empty machines and idle agents are hidden. Within each machine, needs-input comes first, then done, then working. Visiting a done agent acknowledges it through Herdr and removes it when idle. Active sub-agents stay reachable by clicking their row.
+
+Drag the sidebar edge to resize it. Cards wrap at intermediate widths, then become a compact machine/agent rail below 80 px. Hover a compact row for its full label and status; click to focus the agent. Machine headings collapse their group and retain an attention indicator when folded. The local machine is labeled Local.
 
 ## macOS differences
 

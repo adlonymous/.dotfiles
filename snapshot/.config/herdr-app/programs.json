@@ -1,0 +1,10 @@
+{
+  "programs": {
+    "posting": {
+      "name": "Posting",
+      "icon": "icons/shell.svg",
+      "tint": true,
+      "run": ["posting"]
+    }
+  }
+}
