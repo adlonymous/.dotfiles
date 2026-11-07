@@ -38,6 +38,15 @@ def check_secrets(text: str, name: str) -> None:
 def portable_text(path: Path, home: Path) -> str:
     """Replace only the source home path, leaving model IDs and preferences intact."""
     text = path.read_text()
+    if path.parent.name == "layouts" and path.name == "wide-panels.json":
+        layout = json.loads(text)
+        def clear_git_terminal(node):
+            if node.get("id") == "git-terminal":
+                node["content"] = {"mod": "changes-readable", "props": {"placeholder": True}}
+            for child in node.get("children", []):
+                clear_git_terminal(child)
+        clear_git_terminal(layout)
+        text = json.dumps(layout, indent=2) + "\n"
     check_secrets(text, str(path.relative_to(home)))
     return text.replace(str(home), HOME_TOKEN)
 

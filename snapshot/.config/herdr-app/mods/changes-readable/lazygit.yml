@@ -1,0 +1,15 @@
+git:
+  autoFetch: false
+  autoForwardBranches: none
+  autoStageResolvedConflicts: false
+  disableForcePushing: true
+  skipHookPrefix: ''
+gui:
+  skipNoStagedFilesWarning: false
+keybinding:
+  files:
+    commitChangesWithoutHook: <disabled>
+update:
+  method: never
+disableStartupPopups: true
+notARepository: quit
