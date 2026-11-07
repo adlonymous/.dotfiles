@@ -30,6 +30,9 @@ class ConfigSyncTests(unittest.TestCase):
         (app / "mods/shipped/main.js").write_text('shipped')
         (app / "mods/custom/main.js").write_text('custom')
         (app / "mods/custom/gpui-kit.d.ts").write_text('generated')
+        (app / "mods/custom/__pycache__").mkdir()
+        (app / "mods/custom/__pycache__/helper.pyc").write_bytes(b'\x00\xff')
+        (app / "mods/custom/.env").write_text('PRIVATE=value')
         (app / "settings.json").write_text('{"font_size":16}')
         pi = self.source / ".pi/agent"
         (pi / "extensions").mkdir(parents=True)
@@ -53,6 +56,8 @@ class ConfigSyncTests(unittest.TestCase):
         self.assertNotIn('.config/herdr-app/mods/shipped/main.js', paths)
         self.assertNotIn('.config/herdr-app/layouts/main.json', paths)
         self.assertNotIn('.config/herdr-app/mods/custom/gpui-kit.d.ts', paths)
+        self.assertNotIn('.config/herdr-app/mods/custom/__pycache__/helper.pyc', paths)
+        self.assertNotIn('.config/herdr-app/mods/custom/.env', paths)
         self.assertIn('.config/herdr-app/mods/custom/main.js', paths)
         self.assertIn('.config/herdr-app/layouts/personal.json', paths)
 

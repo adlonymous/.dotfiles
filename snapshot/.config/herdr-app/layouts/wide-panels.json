@@ -151,6 +151,18 @@
               "min": 280,
               "max": 1600,
               "hidden": true
+            },
+            {
+              "id": "tickets-panel",
+              "type": "block",
+              "content": {
+                "mod": "workspace-tickets"
+              },
+              "size": {
+                "px": 384
+              },
+              "min": 320,
+              "max": 900
             }
           ],
           "padding": 8,

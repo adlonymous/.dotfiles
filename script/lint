@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-uvx ruff check tools tests
+uvx ruff check tools tests snapshot/.config/herdr-app/mods/workspace-tickets/ticket_store.py
+npx --yes oxlint@1.91.0 snapshot/.config/herdr-app/mods/workspace-tickets/main.js snapshot/.config/herdr-app/mods/workspace-tickets/ticket-context.mjs tests/ticket-context.test.mjs
 for script in script/*; do
   bash -n "$script"
 done

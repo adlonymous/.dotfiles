@@ -1,7 +1,7 @@
 {
   "source_host": "lombaxPC",
   "source_platform": "Linux",
-  "captured_at": "2026-11-07T03:11:14.722036+00:00",
+  "captured_at": "2026-11-07T04:46:50.077238+00:00",
   "files": [
     {
       "path": ".pi/agent/AGENTS.md",
@@ -535,6 +535,26 @@
     },
     {
       "path": ".config/herdr-app/mods/files-astro/mod.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tickets/main.js",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tickets/mod.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tickets/ticket-context.mjs",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tickets/ticket_store.py",
       "platform": "all",
       "mode": 420
     }

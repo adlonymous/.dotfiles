@@ -77,6 +77,10 @@ def source_files(home: Path):
     for mod in sorted((app / "mods").iterdir()):
         if mod.is_dir() and mod.name not in installed:
             for path in sorted(mod.rglob("*")):
+                if any(part in SKIP_PARTS for part in path.relative_to(mod).parts):
+                    continue
+                if path.suffix == ".pyc" or path.name.startswith(".env"):
+                    continue
                 if path.is_file() and path.name not in {"jsconfig.json", "gpui-kit.d.ts", "herdr.d.ts"}:
                     yield path, "all"
     core = home / ".config/herdr-core/config.toml"

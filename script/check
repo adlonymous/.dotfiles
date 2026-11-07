@@ -4,3 +4,9 @@ cd "$(dirname "$0")/.."
 script/lint
 script/test
 python3 tools/sync_config.py check
+if command -v herdr-app >/dev/null 2>&1; then
+  temporary=$(mktemp -d)
+  trap 'rm -rf "$temporary"' EXIT
+  cp -R snapshot/.config/herdr-app/mods/workspace-tickets "$temporary/workspace-tickets"
+  herdr-app check "$temporary/workspace-tickets"
+fi

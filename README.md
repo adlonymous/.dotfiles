@@ -6,10 +6,10 @@ This PC (`lombaxPC`) is the source of truth for Pi and Herdr configuration. Capt
 
 - Pi's instructions, settings, model definitions, MCP server definitions, keybindings, Zentui settings, prompts, themes, and local skills.
 - Shared skills from `~/.agents/skills`, including the PDF creation skill.
-- Herdr app settings and keys, the custom `wide-panels` layout, and the `files-astro` and `changes-readable` panels.
+- Herdr app settings and keys, the custom `wide-panels` layout, and the `files-astro`, `changes-readable`, and `workspace-tickets` panels.
 - A herdr-core `config.toml` if the source PC has one. The initial capture has none.
 
-The snapshot contains configuration and source files, not installed applications or model weights. Source versions when set up: Pi 1.5.0, Herdr app 0.1.12, herdr-core 0.1.17. Install compatible versions separately and open Herdr once before applying.
+The snapshot contains configuration and source files, not installed applications or model weights. Source versions: Pi 1.5.0, Herdr app 0.1.13, herdr-core 0.1.17. Install compatible versions separately and open Herdr once before applying.
 
 Credentials, authentication tokens, session history, SSH/machine pairing, package caches, Herdr window/session state, generated type files, and shipped Herdr layouts/mods are not copied. Herdr's generated legacy `herdr-agent-state.ts` integration is also excluded: the installed Herdr/Pi versions must provide their own integration.
 
@@ -44,6 +44,29 @@ herdr-app do layout.switch --name wide-panels
 The selected layout is screen-local state and is deliberately not copied. Your existing Mac-to-PC connection and spaces remain intact. Connect the PC through Herdr's Machines settings if the Mac has not been paired yet.
 
 Changed files are backed up under `~/.local/state/dotfiles/backups/<timestamp>/`, preserving their home-relative paths and permissions. Applying the same snapshot twice is a no-op. Only managed files are replaced: unrelated local files, including other extensions and mods, are not deleted. Symlinked destinations are refused before any files are changed. Review the preview and resolve those links explicitly rather than forcing through them.
+
+## Workspace tickets
+
+The `wide-panels` layout includes a Tasks column. It is Pi-native and does not install Shepherdr.
+
+1. Select a workspace, click `+ New`, enter a title and description, and create the ticket.
+2. Select the ticket and choose its conversation context:
+   - Fresh starts a new interactive Pi session with the title and description as its prompt.
+   - Fork starts a new Pi session from a saved conversation in the same workspace folder, then sends the ticket prompt. Use `/name` in Pi to make saved sessions recognizable. This version searches Pi's default `~/.pi/agent/sessions/` directory, not custom session directories.
+   - Existing sends the prompt to a live, ready Pi terminal in the same folder (`idle` or `done` after a completed turn). Busy, blocked, and non-Pi programs are refused during preflight. The core's atomic idle guard is used for `idle`; core 0.1.17 has no equivalent `done` guard, so those use a normal, non-forcing send. Do not type into the selected agent simultaneously: a newly started turn could receive the ticket as follow-up input. A dialog is never forced through.
+3. Click `Start ticket`, then `Open Pi terminal` to view the agent. New terminals are adopted into the workspace's active tab through Herdr's core labels.
+4. Click `Mark done` when the work is finished. Idle does not mean done; marking a ticket done never kills its agent.
+
+Ticket status and live agent status are shown separately; an agent reporting `done` means its turn finished, not that the ticket has been accepted. Fresh and forked sessions still share the workspace's files: this version creates no worktrees and allows one running ticket per workspace. This is not a lock against unrelated agents editing those files. There is no automatic completion, review, merge, session-history synchronization, or coordinator agent.
+
+The panel sends helper requests through `exec(..., { on: space.machine })`, so a Mac viewing a PC workspace uses the PC's tickets, sessions, and core. The helper must be installed on both machines by applying this branch. It never copies a PC path into a Mac-local command. Ticket data is private runtime state under `$XDG_DATA_HOME/herdr-tickets/` (default `~/.local/share/herdr-tickets/`) on the workspace's machine and is not captured in dotfiles. Per-workspace file locks and atomic writes protect concurrent clients.
+
+To hide or show the column, run on the machine displaying Herdr:
+
+```bash
+herdr-app do layout.hide --id tickets-panel
+herdr-app do layout.show --id tickets-panel
+```
 
 ## macOS differences
 
@@ -84,7 +107,7 @@ There is no background Git push, automatic pull, credential sync, live-session s
 
 ## Checks and agent instructions
 
-`script/check` runs Ruff, Bash syntax checks, standard-library unit tests, and snapshot path/JSON/credential checks. The tests cover Linux and macOS application, home-path expansion, dry-run safety, backups, idempotence, executable permissions, excluded runtime files, symlinks, path traversal, and credential rejection. No standalone typecheck is configured for these Python tools.
+`script/check` runs Ruff through uvx, Oxlint 1.91.0 through npx for the owned ticket-panel JavaScript, Bash syntax checks, Python/Node tests, and snapshot path/JSON/credential checks. The tests cover Linux and macOS application, home-path expansion, dry-run safety, backups, idempotence, executable permissions, excluded runtime files, symlinks, path traversal, credential rejection, workspace routing, and the three ticket launch modes. When hc is installed, an integration test runs real herdr-core in temporary homes and named sessions with a fake Pi process. It checks all launch modes and a second core remotely creating and starting a ticket on the first; it makes no model calls and stops only those test cores. When herdr-app is installed, the check validates a temporary copy of the Tasks mod so generated files never enter the snapshot. No standalone typecheck is configured for these Python/JavaScript tools.
 
 Project-specific instructions: [AGENTS.md](AGENTS.md).
 
