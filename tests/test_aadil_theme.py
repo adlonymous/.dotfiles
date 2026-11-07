@@ -7,7 +7,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from tools.install_aadil_theme import APP, install_aadil_theme
-from tools.sync_config import source_files
+from tools.sync_config import apply, capture, source_files
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "snapshot" / APP
@@ -65,10 +65,10 @@ class AadilThemeTests(unittest.TestCase):
         for path, text in before.items():
             self.assertEqual(path.read_text(), text)
         result = json.loads((self.app / "layouts/aadil.json").read_text())
-        for field in ("theme", "colors", "preview"):
+        for field in ("theme", "colors", "preview", "ui_font"):
             result.pop(field, None)
         original = json.loads(before[self.wide])
-        for field in ("theme", "colors", "preview"):
+        for field in ("theme", "colors", "preview", "ui_font"):
             original.pop(field, None)
         self.assertEqual(result, original)
         self.assertTrue((self.app / "layouts/aadil.svg").is_file())
@@ -84,6 +84,7 @@ class AadilThemeTests(unittest.TestCase):
         clone.assert_not_called()
         result = json.loads((self.app / "layouts/aadil.json").read_text())
         self.assertEqual(result["font_size"], 27)
+        self.assertEqual(result["ui_font"], "Ramline")
         self.assertEqual(result["children"][0]["size"], {"px": 151})
 
     def test_symlink_is_rejected_before_native_clone(self):
@@ -110,6 +111,28 @@ class AadilThemeTests(unittest.TestCase):
         self.assertNotIn(APP + "/themes/win98.json", paths)
         self.assertNotIn(APP + "/themes/unrelated.json", paths)
         self.assertNotIn(APP + "/layouts/win98.svg", paths)
+
+    def test_fonts_are_copied_byte_for_byte_and_captured_as_binary(self):
+        with patch("tools.install_aadil_theme.subprocess.run", side_effect=self.clone):
+            install_aadil_theme(self.home, ROOT, "Darwin", True)
+        for weight in ("Heavy", "Light"):
+            relative = f"mods/aadil-fonts/fonts/Ramline-{weight}.otf"
+            expected = (ASSETS / relative).read_bytes()
+            self.assertTrue(expected.startswith(b"OTTO"))
+            self.assertEqual((self.app / relative).read_bytes(), expected)
+        license_text = (self.app / "mods/aadil-fonts/fonts/LICENSE.txt").read_text()
+        self.assertIn("Permission is granted, free of charge", license_text)
+        self.assertIn("embed", license_text)
+        (self.app / "installed.json").write_text('{}')
+        captured = self.home / "captured"
+        captured.mkdir()
+        capture(self.home, captured)
+        destination = self.home / "other-machine"
+        destination.mkdir()
+        apply(destination, captured, "Darwin", True)
+        for weight in ("Heavy", "Light"):
+            relative = APP + f"/mods/aadil-fonts/fonts/Ramline-{weight}.otf"
+            self.assertEqual((destination / relative).read_bytes(), (self.home / relative).read_bytes())
 
     def test_palette_has_readable_text_and_distinct_semantic_colors(self):
         palette = json.loads((ASSETS / "themes/aadil.json").read_text())

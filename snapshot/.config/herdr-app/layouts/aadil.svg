@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="768" height="432" viewBox="0 0 768 432">
-  <defs><linearGradient id="header" x2="1" y2="1"><stop stop-color="#6866a3"/><stop offset="1" stop-color="#35317e"/></linearGradient></defs>
-  <rect width="768" height="432" rx="8" fill="#24233f"/>
+  <defs><linearGradient id="header" x2="1" y2="1"><stop stop-color="#514d88"/><stop offset="1" stop-color="#29265f"/></linearGradient></defs>
+  <rect width="768" height="432" rx="8" fill="#1e1d35"/>
   <g stroke="#a5a4c9" stroke-width="1">
-    <rect x="12" y="12" width="164" height="408" rx="5" fill="#4a4790"/>
+    <rect x="12" y="12" width="164" height="408" rx="5" fill="#3a3773"/>
     <rect x="186" y="12" width="570" height="38" rx="5" fill="url(#header)"/>
-    <rect x="186" y="60" width="348" height="360" rx="5" fill="#35317e"/>
-    <rect x="544" y="60" width="212" height="360" rx="5" fill="#35317e"/>
+    <rect x="186" y="60" width="348" height="360" rx="5" fill="#29265f"/>
+    <rect x="544" y="60" width="212" height="360" rx="5" fill="#29265f"/>
   </g>
-  <g font-family="sans-serif" fill="#f2f1ff">
-    <text x="28" y="40" font-size="18" font-weight="bold">Herdr<tspan fill="#ffb491">.</tspan></text>
+  <g font-family="Ramline, sans-serif" font-weight="300" fill="#f2f1ff">
+    <text x="28" y="40" font-size="18" font-weight="900">Herdr<tspan fill="#ffb491">.</tspan></text>
     <text x="28" y="83" font-size="12">WORKSPACES</text>
-    <rect x="22" y="96" width="144" height="30" rx="4" fill="#4d4984"/>
+    <rect x="22" y="96" width="144" height="30" rx="4" fill="#403b72"/>
     <text x="32" y="116" font-size="13">Project</text>
     <text x="28" y="254" font-size="12">AGENTS</text>
     <circle cx="33" cy="278" r="4" fill="#ffd08a"/><text x="46" y="283" font-size="12">Working</text>

@@ -1,0 +1,14 @@
+Ramline Heavy and Light: original generated font assets and build source
+
+Permission is granted, free of charge, to use, copy, modify, embed, distribute,
+and sell these original font files and their source, for personal or commercial
+purposes, without an attribution requirement.
+
+These assets are supplied as-is, without warranty of any kind. The font name
+has not been checked for trademark availability. No claim of exclusive rights
+in AI-assisted output is made.
+
+This permission covers only the original Ramline files in this directory.
+It does not cover Chicago Rapidtype, U.S. Graphics Company assets, or the
+third-party dependencies used to build the font. No reference font files or
+SVG letter outlines were copied into this font.

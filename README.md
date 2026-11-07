@@ -47,7 +47,7 @@ Changed files are backed up under `~/.local/state/dotfiles/backups/<timestamp>/`
 
 ## Aadil theme
 
-`wide-panels` is a layout, not a color theme: it arranges the sidebar, terminals, and shared Files / Changes / Tickets panel. Herdr 98 is another layout with its own look. Aadil is a separate, reversible themed copy of your existing wide-panels layout, inspired by [aadil.work](https://aadil.work): indigo panels, lavender chrome, soft-white text, silver borders, and warm orange accents. Red/green diffs and agent status colors stay distinct.
+`wide-panels` is a layout, not a color theme: it arranges the sidebar, terminals, and shared Files / Changes / Tickets panel. Herdr 98 is another layout with its own look. Aadil is a separate, reversible themed copy of your existing wide-panels layout, inspired by [aadil.work](https://aadil.work): dark indigo panels, muted blue-violet chrome, soft-white text, silver borders, and warm orange accents. Red/green diffs and agent status colors stay distinct.
 
 With Herdr running and wide-panels already installed:
 
@@ -57,7 +57,7 @@ script/install-aadil-theme --write  # create/update only the Aadil choice
 herdr-app do layout.switch --name aadil
 ```
 
-On first installation the native layout.clone command copies your existing layout and saved size choices. The updater changes only the copy's paint, and installs themes/aadil.json plus its layout-picker SVG preview. Existing Aadil geometry is preserved on subsequent updates. It never edits wide-panels, settings.json, keys, fonts, font sizes, agents, or machine connections. Use this scoped updater rather than full apply on an existing Mac.
+On first installation the native layout.clone command copies your existing layout and saved size choices. The updater changes the copy's paint and UI typeface, and installs themes/aadil.json, its layout-picker SVG preview, and the licensed Ramline 0.101 OTF pair. Existing Aadil geometry is preserved on subsequent updates. It never edits wide-panels, settings.json, keys, font sizes, terminal/code fonts, agents, or machine connections. Use this scoped updater rather than full apply on an existing Mac.
 
 Return to the previous look at any time:
 
@@ -65,7 +65,7 @@ Return to the previous look at any time:
 herdr-app do layout.switch --name wide-panels
 ```
 
-The choice appears alongside the other layouts in Settings and the layout switcher. The palette applies to Herdr chrome and terminal ANSI colors on this screen; terminal programs that draw their own true-color interfaces can retain their own colors. The palette JSON is the color source of truth; run the updater after editing it to regenerate the layout's paint overrides. No website fonts or images are installed. Linux screenshots verify Files, Changes, Tickets, and switching back; actual Mac UI testing remains needed.
+The choice appears alongside the other layouts in Settings and the layout switcher. The palette applies to Herdr chrome and terminal ANSI colors on this screen; terminal programs that draw their own true-color interfaces can retain their own colors. The palette JSON is the color source of truth; run the updater after editing it to regenerate the layout's paint overrides. Ramline Light is used for UI body text and Heavy for weighted headings. The two fonts and their embedding/distribution permission notice are bundled under mods/aadil-fonts/fonts; no system-wide font installation is needed. Terminals and code diffs stay monospace because Ramline is proportional and has limited Latin coverage. No website images are installed. Linux screenshots verify Files, Changes, Tickets, and switching back; actual Mac UI testing remains needed.
 
 ## Git and GitHub in Changes
 

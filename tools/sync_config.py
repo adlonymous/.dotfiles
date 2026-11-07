@@ -14,6 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 HOME_TOKEN = "__DOTFILES_HOME__"
 SKIP_PARTS = {".git", "node_modules", "__pycache__", ".DS_Store"}
+FONT_PATHS = {f".config/herdr-app/mods/aadil-fonts/fonts/Ramline-{weight}.otf" for weight in ("Heavy", "Light")}
 SECRET_PATTERNS = (
     r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----",
     r"\b(?:ghp_|github_pat_|sk-proj-|sk-ant-)[A-Za-z0-9_-]{20,}",
@@ -33,6 +34,14 @@ def check_secrets(text: str, name: str) -> None:
         if (value and value not in {"ollama", "local", "none", "dummy", "unused", "bonsai"}
                 and not re.match(r"\$|!|<|YOUR_|your_|process\.env|os\.environ", value)):
             raise ValueError(f"Review literal {key} in {name}; refusing to copy it")
+
+
+def read_font_asset(path: Path) -> bytes:
+    """Read only allowlisted OpenType assets without text decoding or home-path expansion."""
+    contents = path.read_bytes()
+    if not contents.startswith(b"OTTO"):
+        raise ValueError(f"Expected an OpenType font: {path.name}")
+    return contents
 
 
 def portable_text(path: Path, home: Path) -> str:
@@ -107,7 +116,10 @@ def capture(home: Path, repo: Path) -> int:
             relative = source.relative_to(home)
             destination = staged / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
-            destination.write_text(portable_text(source, home))
+            if relative.as_posix() in FONT_PATHS:
+                destination.write_bytes(read_font_asset(source))
+            else:
+                destination.write_text(portable_text(source, home))
             mode = source.stat().st_mode & 0o777
             destination.chmod(mode)
             entries.append({"path": relative.as_posix(), "platform": system, "mode": mode})
@@ -165,35 +177,38 @@ def apply(home: Path, repo: Path, system: str, write: bool) -> list[str]:
         relative = entry["path"]
         destination = target_path(home, relative)
         source = target_path(snapshot, relative)
-        text = source.read_text()
-        check_secrets(text, relative)
-        text = render_file(text, relative, home, system)
+        if relative in FONT_PATHS:
+            contents = read_font_asset(source)
+        else:
+            text = source.read_text()
+            check_secrets(text, relative)
+            contents = render_file(text, relative, home, system).encode("utf-8")
         if destination.exists() and not destination.is_file():
             raise ValueError(f"Expected a file: {destination}")
-        if (not destination.exists() or destination.read_text() != text
+        if (not destination.exists() or destination.read_bytes() != contents
                 or destination.stat().st_mode & 0o777 != entry["mode"]):
-            changes.append((relative, destination, text, entry["mode"]))
+            changes.append((relative, destination, contents, entry["mode"]))
     if write and changes:
         stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S.%fZ")
         backup = target_path(home, f".local/state/dotfiles/backups/{stamp}")
-        for relative, destination, _text, _mode in changes:
+        for relative, destination, _contents, _mode in changes:
             if destination.exists():
                 saved = backup / relative
                 saved.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(destination, saved)
-        for _relative, destination, text, mode in changes:
+        for _relative, destination, contents, mode in changes:
             destination.parent.mkdir(parents=True, exist_ok=True)
             descriptor, temporary = tempfile.mkstemp(dir=destination.parent, prefix=".dotfiles-")
             try:
-                with os.fdopen(descriptor, "w") as stream:
-                    stream.write(text)
+                with os.fdopen(descriptor, "wb") as stream:
+                    stream.write(contents)
                 os.chmod(temporary, mode)
                 os.replace(temporary, destination)
             finally:
                 if os.path.exists(temporary):
                     os.unlink(temporary)
         print(f"Backups of replaced files: {backup}")
-    return [relative for relative, _destination, _text, _mode in changes]
+    return [relative for relative, _destination, _contents, _mode in changes]
 
 
 def main() -> None:
@@ -215,6 +230,9 @@ def main() -> None:
         snapshot = ROOT / "snapshot"
         for entry in json.loads((snapshot / "manifest.json").read_text())["files"]:
             relative = entry["path"]
+            if relative in FONT_PATHS:
+                read_font_asset(target_path(snapshot, relative))
+                continue
             text = target_path(snapshot, relative).read_text()
             check_secrets(text, relative)
             if relative.endswith(".json"):

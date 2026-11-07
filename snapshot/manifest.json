@@ -499,6 +499,21 @@
       "mode": 420
     },
     {
+      "path": ".config/herdr-app/mods/aadil-fonts/fonts/Ramline-Heavy.otf",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/aadil-fonts/fonts/Ramline-Light.otf",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/aadil-fonts/fonts/LICENSE.txt",
+      "platform": "all",
+      "mode": 420
+    },
+    {
       "path": ".config/herdr-app/themes/aadil.json",
       "platform": "all",
       "mode": 420

@@ -10,11 +10,15 @@ from pathlib import Path
 from tools.sync_config import ROOT, apply, target_path
 
 APP = ".config/herdr-app"
+ASSETS = (
+    "mods/aadil-fonts/fonts/Ramline-Heavy.otf", "mods/aadil-fonts/fonts/Ramline-Light.otf",
+    "mods/aadil-fonts/fonts/LICENSE.txt", "themes/aadil.json", "layouts/aadil.svg",
+)
 
 
 def aadil_layout(layout: dict, palette: dict) -> dict:
-    """Change only the cloned layout's paint, not its geometry, fonts, or mod references."""
-    return {**layout, "theme": "aadil", "colors": palette["colors"], "preview": "layouts/aadil.svg"}
+    """Change the copy's paint and UI typeface, preserving sizes, code fonts, and mod references."""
+    return {**layout, "theme": "aadil", "colors": palette["colors"], "preview": "layouts/aadil.svg", "ui_font": "Ramline"}
 
 
 def install_aadil_theme(home: Path, repo: Path, system: str, write: bool) -> list[str]:
@@ -25,7 +29,7 @@ def install_aadil_theme(home: Path, repo: Path, system: str, write: bool) -> lis
     palette_path = repo / "snapshot" / APP / "themes/aadil.json"
     palette = json.loads(palette_path.read_text())
     # Preflight every managed destination before asking the running app to clone.
-    for relative in ("themes/aadil.json", "layouts/aadil.svg"):
+    for relative in ASSETS:
         path = target_path(home, APP + "/" + relative)
         if path.exists() and not path.is_file():
             raise ValueError(f"Expected a file: {path}")
@@ -39,11 +43,13 @@ def install_aadil_theme(home: Path, repo: Path, system: str, write: bool) -> lis
     with tempfile.TemporaryDirectory() as temporary:
         staging = Path(temporary)
         entries = []
-        for relative in ("themes/aadil.json", "layouts/aadil.svg", "layouts/aadil.json"):
+        for relative in (*ASSETS, "layouts/aadil.json"):
             path = staging / "snapshot" / APP / relative
             path.parent.mkdir(parents=True, exist_ok=True)
-            text = json.dumps(aadil_layout(layout, palette), indent=2) + "\n" if relative == "layouts/aadil.json" else (repo / "snapshot" / APP / relative).read_text()
-            path.write_text(text)
+            if relative == "layouts/aadil.json":
+                path.write_text(json.dumps(aadil_layout(layout, palette), indent=2) + "\n")
+            else:
+                path.write_bytes((repo / "snapshot" / APP / relative).read_bytes())
             entries.append({"path": APP + "/" + relative, "platform": "all", "mode": 0o644})
         (staging / "snapshot/manifest.json").write_text(json.dumps({"files": entries}))
         changes = apply(home, staging, system, write)
