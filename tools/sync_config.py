@@ -74,6 +74,12 @@ def source_files(home: Path):
     for path in sorted((app / "layouts").glob("*.json")):
         if f"layout:{path.stem}" not in installed:
             yield path, "all"
+            preview = path.with_suffix(".svg")
+            if preview.is_file():
+                yield preview, "all"
+            theme = app / "themes" / path.name
+            if theme.is_file():
+                yield theme, "all"
     for mod in sorted((app / "mods").iterdir()):
         if mod.is_dir() and mod.name not in installed:
             for path in sorted(mod.rglob("*")):

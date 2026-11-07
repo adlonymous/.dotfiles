@@ -45,6 +45,28 @@ The selected layout is screen-local state and is deliberately not copied. Your e
 
 Changed files are backed up under `~/.local/state/dotfiles/backups/<timestamp>/`, preserving their home-relative paths and permissions. Applying the same snapshot twice is a no-op. Only managed files are replaced: unrelated local files, including other extensions and mods, are not deleted. Symlinked destinations are refused before any files are changed. Review the preview and resolve those links explicitly rather than forcing through them.
 
+## Aadil theme
+
+`wide-panels` is a layout, not a color theme: it arranges the sidebar, terminals, and shared Files / Changes / Tickets panel. Herdr 98 is another layout with its own look. Aadil is a separate, reversible themed copy of your existing wide-panels layout, inspired by [aadil.work](https://aadil.work): indigo panels, lavender chrome, soft-white text, silver borders, and warm orange accents. Red/green diffs and agent status colors stay distinct.
+
+With Herdr running and wide-panels already installed:
+
+```bash
+script/install-aadil-theme          # preview only
+script/install-aadil-theme --write  # create/update only the Aadil choice
+herdr-app do layout.switch --name aadil
+```
+
+On first installation the native layout.clone command copies your existing layout and saved size choices. The updater changes only the copy's paint, and installs themes/aadil.json plus its layout-picker SVG preview. Existing Aadil geometry is preserved on subsequent updates. It never edits wide-panels, settings.json, keys, fonts, font sizes, agents, or machine connections. Use this scoped updater rather than full apply on an existing Mac.
+
+Return to the previous look at any time:
+
+```bash
+herdr-app do layout.switch --name wide-panels
+```
+
+The choice appears alongside the other layouts in Settings and the layout switcher. The palette applies to Herdr chrome and terminal ANSI colors on this screen; terminal programs that draw their own true-color interfaces can retain their own colors. The palette JSON is the color source of truth; run the updater after editing it to regenerate the layout's paint overrides. No website fonts or images are installed. Linux screenshots verify Files, Changes, Tickets, and switching back; actual Mac UI testing remains needed.
+
 ## Git and GitHub in Changes
 
 Changes is a native Herdr UI backed directly by Git and `gh`, not an embedded terminal or Lazygit backend. It is independent of Tickets. A Mac-local workspace executes on the Mac; a PC workspace viewed from the Mac executes on the PC. Install Python 3.11+ and Git on every workspace host, plus authenticated `gh` for GitHub creation. Lazygit is not required. Actual Mac UI testing is still needed.
@@ -114,7 +136,7 @@ git diff
 # Review, scan for secrets, then commit and push this feature branch.
 ```
 
-`script/capture` is restricted to the source host named in `snapshot/manifest.json`, to avoid accidentally making the Mac the source. It discovers custom Herdr mods/layouts by excluding names in Herdr's installed-file manifest. It captures no shipped mod even if it was edited in place: clone shipped mods before customizing them, as Herdr requires.
+`script/capture` is restricted to the source host named in `snapshot/manifest.json`, to avoid accidentally making the Mac the source. It discovers custom Herdr mods/layouts by excluding names in Herdr's installed-file manifest. For owned layouts it also captures same-name SVG previews and theme JSON files; shipped themes/previews and arbitrary theme directories are excluded. It captures no shipped mod even if it was edited in place: clone shipped mods before customizing them, as Herdr requires.
 
 On another machine, inside its checkout:
 

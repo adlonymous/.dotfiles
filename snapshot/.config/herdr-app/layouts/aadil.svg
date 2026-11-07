@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="432" viewBox="0 0 768 432">
+  <defs><linearGradient id="header" x2="1" y2="1"><stop stop-color="#6866a3"/><stop offset="1" stop-color="#35317e"/></linearGradient></defs>
+  <rect width="768" height="432" rx="8" fill="#24233f"/>
+  <g stroke="#a5a4c9" stroke-width="1">
+    <rect x="12" y="12" width="164" height="408" rx="5" fill="#4a4790"/>
+    <rect x="186" y="12" width="570" height="38" rx="5" fill="url(#header)"/>
+    <rect x="186" y="60" width="348" height="360" rx="5" fill="#35317e"/>
+    <rect x="544" y="60" width="212" height="360" rx="5" fill="#35317e"/>
+  </g>
+  <g font-family="sans-serif" fill="#f2f1ff">
+    <text x="28" y="40" font-size="18" font-weight="bold">Herdr<tspan fill="#ffb491">.</tspan></text>
+    <text x="28" y="83" font-size="12">WORKSPACES</text>
+    <rect x="22" y="96" width="144" height="30" rx="4" fill="#4d4984"/>
+    <text x="32" y="116" font-size="13">Project</text>
+    <text x="28" y="254" font-size="12">AGENTS</text>
+    <circle cx="33" cy="278" r="4" fill="#ffd08a"/><text x="46" y="283" font-size="12">Working</text>
+    <circle cx="33" cy="306" r="4" fill="#91dce1"/><text x="46" y="311" font-size="12">Done</text>
+    <text x="202" y="36" font-size="13">Workspace</text>
+    <text x="560" y="36" font-size="11">Files   Changes   Tickets</text>
+    <text x="560" y="85" font-size="13">Changes</text>
+    <text x="560" y="119" font-size="11" fill="#ffb491">feat/project</text>
+    <text x="560" y="154" font-size="11" fill="#d1d0f0">Staged</text>
+    <text x="560" y="179" font-size="12">README.md</text>
+  </g>
+  <g font-family="monospace" font-size="12">
+    <text x="202" y="88" fill="#d1d0f0">~/project</text>
+    <text x="202" y="114" fill="#a9ddb4">$ git status</text>
+    <text x="202" y="140" fill="#f2f1ff">On branch feat/project</text>
+    <text x="202" y="166" fill="#91dce1">Ready to build.</text>
+    <text x="560" y="219" fill="#ffafbb">- old content</text>
+    <text x="560" y="242" fill="#a9ddb4">+ new content</text>
+  </g>
+  <rect x="560" y="377" width="180" height="27" rx="4" fill="#ff541f"/>
+  <text x="578" y="395" font-family="sans-serif" font-size="12" fill="#24233f">Commit staged changes</text>
+</svg>

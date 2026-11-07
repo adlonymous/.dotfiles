@@ -489,6 +489,21 @@
       "mode": 420
     },
     {
+      "path": ".config/herdr-app/layouts/aadil.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/layouts/aadil.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/themes/aadil.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
       "path": ".config/herdr-app/layouts/wide-panels.json",
       "platform": "all",
       "mode": 420
