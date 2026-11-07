@@ -89,9 +89,20 @@ herdr-app do layout.show --id panel
 
 ## Agents sidebar
 
-The custom Agents sidebar groups working, needs-input, and unvisited-done agents by machine. Empty machines and idle agents are hidden. Within each machine, needs-input comes first, then done, then working. Visiting a done agent acknowledges it through Herdr and removes it when idle. Active sub-agents stay reachable by clicking their row.
+The custom Agents sidebar uses industrial machine-module cards. Each session keeps one of six schematic markers across status/title changes, viewer restarts, and local/remote addressing. Markers are decorative identities, not inferred agent roles. Cards show the agent's actual name, project and machine, a shaped/labeled WORKING, NEEDS INPUT, or REPORT READY lamp, and reported activity. Without a report, terminal titles are labeled as such. State age comes from the core's status-change timestamp, not task progress; unknown times are omitted. A parent promoted by a sub-agent shows that child's report and state age. There is no continuous animation.
 
-Drag the sidebar edge to resize it. Cards wrap at intermediate widths, then become a compact machine/agent rail below 80 px. Hover a compact row for its full label and status; click to focus the agent. Machine headings collapse their group and retain an attention indicator when folded. The local machine is labeled Local.
+Agents remain grouped by machine. Empty machines and idle agents are hidden. Within each machine, needs-input comes first, then unvisited done, then working. Visiting a done agent acknowledges it through Herdr and removes it when idle; REPORT READY does not accept a ticket. Active sub-agents stay reachable by clicking their row.
+
+Drag the sidebar edge to resize it. Cards wrap at intermediate widths, hide secondary text below 140 px, then become a schematic/status rail below 80 px. Hover for full metadata; click to focus the agent. Machine headings collapse their group and retain an attention indicator when folded. The local machine is labeled Local. Cards inherit the active layout's palette and fonts, including Aadil's Ramline when installed.
+
+Update an existing Mac/Linux viewer without replacing its settings, keybindings, terminal dimensions, other mods, or Aadil/wide-panels geometry:
+
+```sh
+script/install-agent-cards          # preview
+script/install-agent-cards --write  # back up and replace only the Agents files/block
+```
+
+The running app reloads the mod. The installer supports either or both existing Aadil/wide-panels layouts; it does not create a theme or replace another custom Agents view. Restore replaced files from the printed backup directory to undo. Actual Mac UI testing is still needed. Use this scoped installer, not a full apply, to retain newer native Git/theme changes from other feature branches.
 
 ## macOS differences
 

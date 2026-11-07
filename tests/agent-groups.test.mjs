@@ -66,5 +66,6 @@ test("long unbroken labels wrap and cap without splitting surrogate pairs", () =
   assert.equal(wrapAgentLabel("long-machine-name", 5), "long-\nmachi\nne-n…");
   assert.equal(wrapAgentLabel("😀😀😀", 2), "😀😀\n😀");
   assert.equal(wrapAgentLabel("a\n b", 8), "a b");
+  assert.equal(wrapAgentLabel("Portfolio fixture · Local", 24, 2), "Portfolio fixture ·\nLocal");
   assert.equal(wrapAgentLabel("", 0), "");
 });

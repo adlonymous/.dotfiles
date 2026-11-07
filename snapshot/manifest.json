@@ -559,6 +559,11 @@
       "mode": 420
     },
     {
+      "path": ".config/herdr-app/mods/workspace-agents/agent-card.js",
+      "platform": "all",
+      "mode": 420
+    },
+    {
       "path": ".config/herdr-app/mods/workspace-agents/agent-groups.js",
       "platform": "all",
       "mode": 420
@@ -570,6 +575,51 @@
     },
     {
       "path": ".config/herdr-app/mods/workspace-agents/mod.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/arm.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/circuit.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/optics.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/press.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/relay.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/status-blocked.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/status-ready.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/status-working.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/turbine.svg",
       "platform": "all",
       "mode": 420
     },

@@ -32,7 +32,12 @@ export function wrapAgentLabel(text, columns, maxLines = 3) {
   const characters = Array.from((text ?? "").replace(/\s+/g, " ").trim());
   const width = Math.max(1, Math.floor(columns));
   const lines = [];
-  while (characters.length && lines.length < maxLines) lines.push(characters.splice(0, width).join(""));
+  while (characters.length && lines.length < maxLines) {
+    const space = characters.slice(0, width + 1).lastIndexOf(" ");
+    const take = characters.length > width && space > 0 ? space : width;
+    lines.push(characters.splice(0, take).join(""));
+    while (characters[0] === " ") characters.shift();
+  }
   if (characters.length) lines[lines.length - 1] = Array.from(lines.at(-1)).slice(0, -1).join("") + "…";
   return lines.join("\n");
 }
