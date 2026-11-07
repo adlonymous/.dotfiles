@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.ruff_cache/
+.capture-*/
+.env
+.env.*
+!.env.example
+**/auth.json
+**/mcp-auth.json
+**/models-store.json
+**/trust.json
+**/sessions/
+**/node_modules/
+**/*.sock

@@ -1,0 +1,38 @@
+{
+  "defaultProvider": "bonsai-local",
+  "defaultModel": "Ternary-Bonsai-2-27B-PQ2_0.gguf",
+  "collapseChangelog": true,
+  "compaction": {
+    "enabled": true,
+    "keepRecentTokens": 20000,
+    "reserveTokens": 16384
+  },
+  "defaultProjectTrust": "ask",
+  "defaultThinkingLevel": "medium",
+  "doubleEscapeAction": "tree",
+  "enableInstallTelemetry": false,
+  "externalEditor": "nvim",
+  "followUpMode": "one-at-a-time",
+  "lastChangelogVersion": "1.5.0",
+  "packages": [
+    "git:github.com/dmmulroy/pi-mcp",
+    "git:github.com/dmmulroy/pi-web-tools",
+    "npm:pi-zentui@0.34.0",
+    "git:github.com/emilkowalski/skills"
+  ],
+  "quietStartup": false,
+  "retry": {
+    "baseDelayMs": 2000,
+    "enabled": true,
+    "maxRetries": 3,
+    "provider": {
+      "maxRetries": 0,
+      "maxRetryDelayMs": 60000
+    }
+  },
+  "showCacheMissNotices": true,
+  "steeringMode": "one-at-a-time",
+  "theme": "herdr-graphite",
+  "transport": "auto",
+  "treeFilterMode": "default"
+}

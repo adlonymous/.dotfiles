@@ -1,0 +1,9 @@
+{
+  "app.session.new": "ctrl+shift+n",
+  "app.session.resume": "ctrl+shift+r",
+  "app.session.tree": "ctrl+shift+t",
+  "tui.editor.historyPrevious": "alt+p",
+  "tui.editor.historyNext": "alt+n",
+  "tui.altScreen.halfPageUp": "ctrl+u",
+  "tui.altScreen.halfPageDown": "ctrl+d"
+}
