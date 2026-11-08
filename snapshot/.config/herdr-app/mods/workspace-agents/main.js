@@ -37,7 +37,8 @@ export default class WorkspaceAgents extends View {
     const card = agentCardData(agent, allTerminals, allSpaces, now);
     const rail = mode === "rail", skinny = this.width < 140, wide = mode === "wide";
     const metadata = `${card.project} · ${card.machine}`;
-    const tooltip = `${card.name}\n${metadata}\n${card.status.label}${card.age ? " · " + card.age : ""}\n${card.activityLabel}: ${card.activity}`;
+    const activity = card.activityLabel === "STATUS" ? card.activity : `${card.activityLabel}: ${card.activity}`;
+    const tooltip = `${card.name}\n${metadata}\n${card.status.label}${card.age ? " · " + card.age : ""}\n${activity}`;
     const row = v_flex().id(`attention-agent-${agent.address}`).w_full().min_w(0).flex_none()
       .p(rail ? 3 : 8).gap(6).rounded(4).overflow_hidden().bg(agent.focused ? t.selected : t.surface)
       .border_1().border_color(agent.focused ? t.accent : t.border)
@@ -55,7 +56,7 @@ export default class WorkspaceAgents extends View {
         .child(wrapAgentLabel(metadata, Math.max(3, (this.width - 36) / 6), 2))))
       .child(this.status(agent.status, t, card.age))
       .when(!skinny, el => el.child(div().text_size(11).text_color(t.muted).whitespace_normal()
-        .child(wrapAgentLabel(`${card.activityLabel}: ${card.activity}`, Math.max(3, (this.width - 36) / 6.5), 2))));
+        .child(wrapAgentLabel(activity, Math.max(3, (this.width - 36) / 6.5), 2))));
   }
 
   subRow(sub, t, mode) {

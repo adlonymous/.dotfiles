@@ -68,6 +68,16 @@ test("idle starts collapsed, expands to clickable cards, and collapses again", (
   assert.equal(find(view.render(), "attention-agent-t1"), null);
 });
 
+test("working and done cards omit the STATUS prefix in fallback text and tooltips", () => {
+  const { view, list } = sidebar();
+  for (const status of ["working", "done"]) {
+    list[1].status = status;
+    const card = find(view.render(), "attention-agent-t2");
+    assert.equal(card.nodes.at(-1).nodes[0], "No activity reported");
+    assert.ok(card.attributes.tooltip.endsWith("\nNo activity reported"));
+  }
+});
+
 test("idle-only machines remain visible and waking agents leave the idle section", () => {
   const { view, list } = sidebar();
   list.pop();
