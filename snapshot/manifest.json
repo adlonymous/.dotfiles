@@ -4,6 +4,366 @@
   "captured_at": "2026-11-07T06:51:03.207902+00:00",
   "files": [
     {
+      "path": ".pi/agent/AGENTS.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/settings.json",
+      "platform": "all",
+      "mode": 384
+    },
+    {
+      "path": ".pi/agent/keybindings.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/mcp.jsonc",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/models.json",
+      "platform": "all",
+      "mode": 384
+    },
+    {
+      "path": ".pi/agent/zentui.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/prompts/bootstrap.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/prompts/bro.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/prompts/commit.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/prompts/debug.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/prompts/plan.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/prompts/review.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/themes/herdr-graphite.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/themes/herdr-quiet.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/themes/omarchy-system.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/adopt-better-result/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/adopt-better-result/references/repository-audit.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/adopt-better-result/references/result-boundaries.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/adopt-better-result/references/tagged-errors.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/adopt-better-result/references/vertical-slice-migration.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/bro/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/diagnosing-bugs/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/diagnosing-bugs/agents/openai.yaml",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/diagnosing-bugs/scripts/hitl-loop.template.sh",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/grill-me/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/grill-me/agents/openai.yaml",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/grill-with-docs/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/grill-with-docs/agents/openai.yaml",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/grilling/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/grilling/agents/openai.yaml",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/herdr/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/effect/index.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/effect/rules/no-service-constructor-imports.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/index.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-chained-type-assertions.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-conditional-empty-object-spread.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-known-value-widening.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-module-mocking.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-object-parameters.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-reflect-apply.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-reflect-get.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-runtime-typeof.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-shape-in-symbol-names.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-unknown-parameters.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-unknown-returns.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-unknown-type-aliases.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-unsafe-dictionary-type.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-widen-then-assert.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/require-safety-comment-for-type-assertion.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/shared/dictionary-types.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/shared/lexical-type-parameters.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/shared/reflect-method.ts",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/install-anti-slop/scripts/install.mjs",
+      "platform": "all",
+      "mode": 493
+    },
+    {
+      "path": ".pi/agent/skills/migrate-better-result-3/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/migrate-better-result-3/references/result-codec-migration.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/migrate-better-result-3/references/v3-api-diff.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/migrate-better-result-3/scripts/migrate-tagged-error-v3.mjs",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/research/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/research/agents/openai.yaml",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/show-me/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/tdd/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/tdd/agents/openai.yaml",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/tdd/mocking.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/tdd/tests.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/worktrees/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/worktrees/references/canonical-root.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/worktrees/scripts/new-worktree.sh",
+      "platform": "all",
+      "mode": 493
+    },
+    {
+      "path": ".pi/agent/skills/write-discoverable-code/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/writing-for-agents/SKILL-MECHANICS.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/writing-for-agents/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/writing-for-agents/agents/openai.yaml",
+      "platform": "all",
+      "mode": 420
+    },
+    {
       "path": ".agents/skills/.parallel-cli-skills-manifest.json",
       "platform": "all",
       "mode": 420
@@ -114,7 +474,22 @@
       "mode": 420
     },
     {
+      "path": ".pi/agent/extensions/polkit-sudo-guard.ts",
+      "platform": "Linux",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/settings.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
       "path": ".config/herdr-app/keys.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/programs.json",
       "platform": "all",
       "mode": 420
     },
@@ -305,106 +680,6 @@
     },
     {
       "path": ".config/herdr-app/mods/workspace-tickets/ticket_store.py",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/programs.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/settings.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/AGENTS.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/extensions/polkit-sudo-guard.ts",
-      "platform": "Linux",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/keybindings.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/mcp.jsonc",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/models.json",
-      "platform": "all",
-      "mode": 384
-    },
-    {
-      "path": ".pi/agent/prompts/bootstrap.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/prompts/bro.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/prompts/commit.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/prompts/debug.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/prompts/plan.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/prompts/review.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/settings.json",
-      "platform": "all",
-      "mode": 384
-    },
-    {
-      "path": ".pi/agent/skills/adopt-better-result/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/adopt-better-result/references/repository-audit.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/adopt-better-result/references/result-boundaries.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/adopt-better-result/references/tagged-errors.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/adopt-better-result/references/vertical-slice-migration.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/bro/SKILL.md",
       "platform": "all",
       "mode": 420
     },
@@ -1070,281 +1345,6 @@
     },
     {
       "path": ".pi/agent/skills/design-harness/references/templates/welcome.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/diagnosing-bugs/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/diagnosing-bugs/agents/openai.yaml",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/diagnosing-bugs/scripts/hitl-loop.template.sh",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/grill-me/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/grill-me/agents/openai.yaml",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/grill-with-docs/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/grill-with-docs/agents/openai.yaml",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/grilling/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/grilling/agents/openai.yaml",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/herdr/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/effect/index.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/effect/rules/no-service-constructor-imports.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/index.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-chained-type-assertions.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-conditional-empty-object-spread.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-known-value-widening.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-module-mocking.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-object-parameters.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-reflect-apply.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-reflect-get.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-runtime-typeof.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-shape-in-symbol-names.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-unknown-parameters.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-unknown-returns.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-unknown-type-aliases.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-unsafe-dictionary-type.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/no-widen-then-assert.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/rules/require-safety-comment-for-type-assertion.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/shared/dictionary-types.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/shared/lexical-type-parameters.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/assets/anti-slop/shared/reflect-method.ts",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/install-anti-slop/scripts/install.mjs",
-      "platform": "all",
-      "mode": 493
-    },
-    {
-      "path": ".pi/agent/skills/migrate-better-result-3/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/migrate-better-result-3/references/result-codec-migration.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/migrate-better-result-3/references/v3-api-diff.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/migrate-better-result-3/scripts/migrate-tagged-error-v3.mjs",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/research/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/research/agents/openai.yaml",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/show-me/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/tdd/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/tdd/agents/openai.yaml",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/tdd/mocking.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/tdd/tests.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/worktrees/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/worktrees/references/canonical-root.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/worktrees/scripts/new-worktree.sh",
-      "platform": "all",
-      "mode": 493
-    },
-    {
-      "path": ".pi/agent/skills/write-discoverable-code/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/writing-for-agents/SKILL-MECHANICS.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/writing-for-agents/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/skills/writing-for-agents/agents/openai.yaml",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/themes/herdr-graphite.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/themes/herdr-quiet.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/themes/omarchy-system.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/zentui.json",
       "platform": "all",
       "mode": 420
     }
