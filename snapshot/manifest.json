@@ -4,14 +4,329 @@
   "captured_at": "2026-11-07T06:51:03.207902+00:00",
   "files": [
     {
+      "path": ".agents/skills/.parallel-cli-skills-manifest.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/create-pdf/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/migrate-to-parallel/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/migrate-to-parallel/agents/openai.yaml",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/migrate-to-parallel/references/exa.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/migrate-to-parallel/references/firecrawl.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/migrate-to-parallel/references/integration-patterns.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/migrate-to-parallel/references/parallel-products.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/migrate-to-parallel/references/parallel-search.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/migrate-to-parallel/references/perplexity.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/migrate-to-parallel/references/tavily.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/migrate-to-parallel/scripts/scan_provider_usage.py",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/parallel-cli-setup/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/parallel-data-enrichment/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/parallel-deep-research/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/parallel-findall/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/parallel-memory/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/parallel-monitor/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/parallel-web-extract/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/parallel-web-search/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/result/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".agents/skills/status/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/keys.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/layouts/wide-panels.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/changes-readable/changes.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/changes-readable/git-context.mjs",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/changes-readable/git_backend.py",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/changes-readable/lazygit.yml",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/changes-readable/main.js",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/changes-readable/mod.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/files-astro/chevron-down.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/files-astro/chevron-right.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/files-astro/file.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/files-astro/folder.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/files-astro/main.js",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/files-astro/mod.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/agent-card.js",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/agent-groups.js",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/main.js",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/mod.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/arm.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/circuit.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/optics.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/press.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/relay.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/status-blocked.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/status-idle.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/status-ready.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/status-working.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-agents/schematics/turbine.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tabs/LICENSE",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tabs/main.js",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tabs/mod.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tabs/ticket.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tabs/win-max.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tabs/win-min.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tabs/win-restore.svg",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tickets/main.js",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tickets/mod.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tickets/ticket-context.mjs",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/mods/workspace-tickets/ticket_store.py",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/programs.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".config/herdr-app/settings.json",
+      "platform": "all",
+      "mode": 420
+    },
+    {
       "path": ".pi/agent/AGENTS.md",
       "platform": "all",
       "mode": 420
     },
     {
-      "path": ".pi/agent/settings.json",
-      "platform": "all",
-      "mode": 384
+      "path": ".pi/agent/extensions/polkit-sudo-guard.ts",
+      "platform": "Linux",
+      "mode": 420
     },
     {
       "path": ".pi/agent/keybindings.json",
@@ -27,11 +342,6 @@
       "path": ".pi/agent/models.json",
       "platform": "all",
       "mode": 384
-    },
-    {
-      "path": ".pi/agent/zentui.json",
-      "platform": "all",
-      "mode": 420
     },
     {
       "path": ".pi/agent/prompts/bootstrap.md",
@@ -64,19 +374,9 @@
       "mode": 420
     },
     {
-      "path": ".pi/agent/themes/herdr-graphite.json",
+      "path": ".pi/agent/settings.json",
       "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/themes/herdr-quiet.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/themes/omarchy-system.json",
-      "platform": "all",
-      "mode": 420
+      "mode": 384
     },
     {
       "path": ".pi/agent/skills/adopt-better-result/SKILL.md",
@@ -105,6 +405,671 @@
     },
     {
       "path": ".pi/agent/skills/bro/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/SKILL.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/SOURCES.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/PARITY.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/README.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/components.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/components/chip.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/components/cover.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/components/dot-matrix-button.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/components/glow.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/components/highlighted-word.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/components/icon-button.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/components/menu-item.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/components/spine.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/components/swatch.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/components/switch.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/components/term.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/bookshelf.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/coffee-table.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/faq.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/footer.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/glyph-matrix.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/harness-actions.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/harness-diagram.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/harness-flow.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/harness-viewer.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/media-reveal.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/navigation.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/post-actions.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/record.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/toc.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/viewer.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/patterns/work-grid.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/screens.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/screens/footer.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/components/screens/reading.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/brand.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/brand/wordmark.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/colors.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/colors/colour.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/icons.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/icons/icons.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/layout-grid.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/materials.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/materials/texture.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/motion.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/motion/emergence.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/motion/hidden-extras.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/motion/motion.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/motion/orbs.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/motion/resolve.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/motion/streaming.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/motion/webgl-renderer.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/motion/webgl-shaders.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/motion/webgl-wordmark.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/motion/webgl.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/sound.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/sound/sound.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/spacing.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/spacing/spacing.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/themes.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/themes/dark.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/themes/light.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/themes/marathon-accents.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/themes/marathon-dark.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/themes/marathon-light.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/typography.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/typography/type.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/writing.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/writing/my-words.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/foundations/writing/punctuation.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/agents.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/agents/ada.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/agents/dev.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/agents/web.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/agents/wren.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/memories.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/memories/16px-image-corners.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/memories/drafts-stay-private.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/memories/every-word-is-mine.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/memories/no-em-dashes.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/memories/no-modals-for-books.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/memories/quiet-sound.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/memories/single-green-check.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/packages.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/packages/abc-favorit-mono.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/packages/admin-kit.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/packages/amicons.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/packages/inter-display.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/packages/kult-luxury.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/packages/open-library.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/packages/python-standard-library.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/packages/shinka.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/packages/sips.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/packages/three-js.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/packages/tiptap.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/policy.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/policy/detail.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/policy/little-first.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/policy/made-live.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/skills.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/skills/catalogue-lookup.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/skills/cms-records.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/skills/figma-import.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/skills/generative-sound.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/skills/screenshot-review.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/skills/sdf-rendering.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/skills/theme-tokens.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/tools.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/tools/cms.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/tools/debug-panel.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/tools/orb-bench.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/tools/sdf-type-bench.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/tools/wordmark-shader-bench.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/vocabulary.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/vocabulary/emergence.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/vocabulary/felt.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/vocabulary/glyph-matrix.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/vocabulary/marathon.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/vocabulary/resolve.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/vocabulary/spine.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/intelligence/vocabulary/thinking.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/templates/article.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/templates/coffee-table.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/templates/contact.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/templates/experiments.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/templates/home.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/templates/lectures.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/templates/library.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/templates/record.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/templates/settings.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/templates/speaking.md",
+      "platform": "all",
+      "mode": 420
+    },
+    {
+      "path": ".pi/agent/skills/design-harness/references/templates/welcome.md",
       "platform": "all",
       "mode": 420
     },
@@ -364,322 +1329,22 @@
       "mode": 420
     },
     {
-      "path": ".agents/skills/.parallel-cli-skills-manifest.json",
+      "path": ".pi/agent/themes/herdr-graphite.json",
       "platform": "all",
       "mode": 420
     },
     {
-      "path": ".agents/skills/create-pdf/SKILL.md",
+      "path": ".pi/agent/themes/herdr-quiet.json",
       "platform": "all",
       "mode": 420
     },
     {
-      "path": ".agents/skills/migrate-to-parallel/SKILL.md",
+      "path": ".pi/agent/themes/omarchy-system.json",
       "platform": "all",
       "mode": 420
     },
     {
-      "path": ".agents/skills/migrate-to-parallel/agents/openai.yaml",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/migrate-to-parallel/references/exa.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/migrate-to-parallel/references/firecrawl.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/migrate-to-parallel/references/integration-patterns.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/migrate-to-parallel/references/parallel-products.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/migrate-to-parallel/references/parallel-search.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/migrate-to-parallel/references/perplexity.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/migrate-to-parallel/references/tavily.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/migrate-to-parallel/scripts/scan_provider_usage.py",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/parallel-cli-setup/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/parallel-data-enrichment/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/parallel-deep-research/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/parallel-findall/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/parallel-memory/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/parallel-monitor/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/parallel-web-extract/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/parallel-web-search/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/result/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".agents/skills/status/SKILL.md",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".pi/agent/extensions/polkit-sudo-guard.ts",
-      "platform": "Linux",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/settings.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/keys.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/programs.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/layouts/wide-panels.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/changes-readable/changes.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/changes-readable/git-context.mjs",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/changes-readable/git_backend.py",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/changes-readable/lazygit.yml",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/changes-readable/main.js",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/changes-readable/mod.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/files-astro/chevron-down.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/files-astro/chevron-right.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/files-astro/file.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/files-astro/folder.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/files-astro/main.js",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/files-astro/mod.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-agents/agent-card.js",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-agents/agent-groups.js",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-agents/main.js",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-agents/mod.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-agents/schematics/arm.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-agents/schematics/circuit.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-agents/schematics/optics.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-agents/schematics/press.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-agents/schematics/relay.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-agents/schematics/status-blocked.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-agents/schematics/status-idle.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-agents/schematics/status-ready.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-agents/schematics/status-working.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-agents/schematics/turbine.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-tabs/LICENSE",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-tabs/main.js",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-tabs/mod.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-tabs/ticket.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-tabs/win-max.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-tabs/win-min.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-tabs/win-restore.svg",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-tickets/main.js",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-tickets/mod.json",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-tickets/ticket-context.mjs",
-      "platform": "all",
-      "mode": 420
-    },
-    {
-      "path": ".config/herdr-app/mods/workspace-tickets/ticket_store.py",
+      "path": ".pi/agent/zentui.json",
       "platform": "all",
       "mode": 420
     }

@@ -17,6 +17,9 @@
 - If you notice unrelated dead code or bugs, mention them, don't fix the unprompted.
 - Clean up orphans your changes create (unused import, variables). Don't remove pre-existing dead code unless asked
 
+# Design work
+- Before visual design or UI work, read `~/.pi/agent/skills/design-harness/SKILL.md` and its required task-relevant reference files. Use it alongside applicable design skills; preserve the project's identity, the user's brief, platform constraints, and asset licensing.
+
 # Running scripts and commands
 - Use Github's "Scripts to Rule Them All" approach to running scripts and commands https://github.com/github/scripts-to-rule-them-all 
 - If the project has a "scripts" or "script" directory, run those scripts for tasks like testing, linting, formatting, etc.
