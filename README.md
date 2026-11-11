@@ -141,6 +141,23 @@ pi update --extensions
 
 There is no background Git push, automatic pull, credential sync, live-session sync, or automatic deletion. The token scan is a guardrail, not proof that arbitrary future files are safe to publish. Review every capture before pushing this public repository. Git-backed Pi packages retain the source's existing package declarations and may follow upstream; caches are not a package lockfile.
 
+## PC display reconnect diagnostics
+
+For the PC's black-screen/cursor problem after powering its monitor off, install private logging and a recovery shortcut without changing GPU, locking, idle, or sleep settings:
+
+```sh
+script/install-display-diagnostics
+script/install-display-diagnostics --write
+systemctl --user daemon-reload
+systemctl --user enable --now adlonymous-display-diagnostics.service
+```
+
+Reload Hyprland to register Super+Ctrl+F12. The shortcut captures display state, requests display power on, and reloads Hyprland's configuration. It does not close applications, terminate a lock, or restart the graphical session. If the compositor is unresponsive, the shortcut may not run. From a text login (Ctrl+Alt+F3) or an existing remote connection, run `~/.local/bin/adlonymous-display-diagnostics recover` instead. Recovery is an attempt, not a proven fix for the overnight failure.
+
+Logs live under `${XDG_STATE_HOME:-~/.local/state}/display-diagnostics/`: display hotplug events, a 30-second heartbeat, connector state, window counts, and relevant kernel GPU/suspend messages. Window titles, command lines, event payloads, and screenshots are not collected. Files are private; the event log rotates at 5 MiB with two backups, and the latest 20 captures are retained. State is excluded from dotfiles sync. Captures made by the recovery command include before/after state and command results, not a claim that the screen visibly recovered.
+
+To undo, disable the service with `systemctl --user disable --now adlonymous-display-diagnostics.service`, restore `binds.lua` and any pre-existing helper/service from the printed backup directory, and remove the installed helper/service if they were newly created. Run `systemctl --user daemon-reload` and reload Hyprland. Keep the runtime logs until diagnosis is finished.
+
 ## Checks and agent instructions
 
 `script/check` runs Ruff through uvx, Oxlint 1.91.0 through npx for the owned panel JavaScript, Bash syntax checks, Python/Node tests, and snapshot path/JSON/credential checks. The tests cover Linux and macOS application, home-path expansion, dry-run safety, backups, idempotence, executable permissions, excluded runtime files, symlinks, path traversal, credential rejection, workspace routing, and the three ticket launch modes. When hc is installed, an integration test runs real herdr-core in temporary homes and named sessions with a fake Pi process. It checks all launch modes and a second core remotely creating and starting a ticket on the first; it makes no model calls and stops only those test cores. Git tests also cover safe project creation, explicit GitHub visibility, hook preservation, staged-secret checks, default-branch push guards, runtime-address exclusion, and client routing. With hc and Lazygit installed, two isolated cores run real local/remote Lazygit sessions, stage a selected file through keyboard input, verify session reuse, and quit. No GitHub repositories are created by tests. When herdr-app is installed, the check validates temporary copies of the Tickets, Changes, and workspace-tabs mods so generated files never enter the snapshot. No standalone typecheck is configured for these Python/JavaScript tools.
